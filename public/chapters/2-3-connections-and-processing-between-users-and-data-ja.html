@@ -1,0 +1,10 @@
+<p class="c9"><span class="c2">2.1節では、ユーザーとデータの種類、およびどのデータがどのユーザーにアクセス可能であるべきかについて議論しました。2.2節では、ユーザーがデータをCRUD（作成、読み取り、更新、削除）するためのAPIエンドポイントを設計しました。ここで、ユーザーとデータの間の接続を表し、様々なシステムコンポーネントとそれらの間で発生するデータ処理を図示する図を描けるようになりました。</span></p>
+<p class="c4"><span class="c2">フェーズ1:</span></p>
+<ul class="c8 lst-kix_5y85boa1ph1n-0 start"><li class="c18 c13 li-bullet-0"><span class="c2">各種類のユーザーを表す箱を描く。</span></li><li class="c18 c13 li-bullet-0"><span class="c2">機能要件を満たす各システムを表す箱を描く。</span></li><li class="c18 c13 li-bullet-0"><span class="c2">ユーザーとシステムの間の接続を描く。</span></li></ul>
+<p class="c4"><span class="c2">フェーズ2:</span></p>
+<ul class="c8 lst-kix_b2tql4p3g3gu-0 start"><li class="c18 c13 li-bullet-0"><span class="c2">リクエスト処理とストレージを分割する。</span></li><li class="c18 c13 li-bullet-0"><span class="c2">リアルタイム vs 結果整合性など、非機能要件に基づいて異なる設計を作成する。</span></li><li class="c18 c13 li-bullet-0"><span class="c2">共有サービスを検討する。</span></li></ul>
+<p class="c4"><span class="c2">フェーズ3:</span></p>
+<ul class="c8 lst-kix_ghq8brgk4pdx-0 start"><li class="c18 c13 li-bullet-0"><span class="c2">システムをコンポーネント（通常はライブラリやサービス）に分割する。</span></li><li class="c18 c13 li-bullet-0"><span class="c2">接続を描く。</span></li><li class="c18 c13 li-bullet-0"><span class="c2">ロギング、モニタリング、アラートを検討する。</span></li><li class="c18 c13 li-bullet-0"><span class="c2">セキュリティを検討する。</span></li></ul>
+<p class="c4"><span class="c2">フェーズ4:</span></p>
+<ul class="c8 lst-kix_ogcqv53nlwf0-0 start"><li class="c18 c13 li-bullet-0"><span class="c2">システム設計の要約を含める。</span></li><li class="c18 c13 li-bullet-0"><span class="c2">新たな追加要件を提示する。</span></li><li class="c38 c13 li-bullet-0"><span class="c2">フォールトトレランスを分析する。各コンポーネントで何が起こりうるか? ネットワーク遅延、不整合、線形化可能性の欠如など。それぞれの状況を予防・緩和し、このコンポーネントとシステム全体のフォールトトレランスを向上させるために何ができるか?</span></li></ul>
+<p class="c9"><span class="c29">付録Cで、システムを様々な抽象化レベルに分解するためのシステムアーキテクチャ図技法である</span><span class="c29 c36">C4モデル</span><span class="c2">の概要を参照してください。</span></p>
