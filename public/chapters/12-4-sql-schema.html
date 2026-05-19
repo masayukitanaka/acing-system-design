@@ -1,0 +1,39 @@
+<p class="c9"><span class="c2 c13">We use an SQL database for dynamic data that is shown on the client apps, such as which photos are associated to which user. We can define the following SQL table schema in listing 12.1. The Image table contains image metadata. We can assign each sharer its own CDN directory, which we track using the ImageDir table. The schema descriptions are included in the CREATE statement.</span></p>
+<p class="c44 c100"><span class="c101 c95 c13">Listing 12.1 SQL CREATE statements for the Image and ImageDir tables</span></p>
+<p class="c3"><span class="c7">CREATE TABLE Image (</span></p>
+<p class="c3"><span class="c7">cdn_path VARCHAR(255) PRIMARY KEY COMMENT="Image file path on the</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;CDN.",</span></p>
+<p class="c3"><span class="c7">cdn_photo_key VARCHAR(255) NOT NULL UNIQUE COMMENT="ID assigned by the</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;CDN.",</span></p>
+<p class="c3"><span class="c7">file_key VARCHAR(255) NOT NULL UNIQUE COMMENT="ID assigned by our File</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;Storage Service. We may not need this column if we delete the image from</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;our File Storage Service after it is uploaded to the CDN.",</span></p>
+<p class="c3"><span class="c7">resolution ENUM(‘thumbnail’, ‘hd’) COMMENT="Indicates the image is a</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;thumbnail or high resolution",</span></p>
+<p class="c3"><span class="c7">owner_id VARCHAR(255) NOT NULL COMMENT="ID of the user who owns the</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;image.",</span></p>
+<p class="c3"><span class="c7">is_public BOOLEAN NOT NULL DEFAULT 1 COMMENT="Indicates if the image is</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;public or private.",</span></p>
+<p class="c3"><span class="c7">INDEX thumbnail (Resolution, UserId) COMMENT="Composite index on the</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;resolution and user ID so we can quickly find thumbnail or high</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;resolution images that belong to a particular user."</span></p>
+<p class="c3"><span class="c7">) COMMENT="Image metadata.";</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">CREATE TABLE ImageDir (</span></p>
+<p class="c3"><span class="c7">cdn_dir VARCHAR(255) PRIMARY KEY COMMENT="CDN directory assigned to the</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;user.",</span></p>
+<p class="c3"><span class="c7">user_id INTEGER NOT NULL COMMENT="User ID."</span></p>
+<p class="c74 c13"><span class="c7">) COMMENT="Record the CDN directory assigned to each sharer.";</span></p>
+<p class="c4"><span class="c2 c13">As fetching photos by user ID and resolution is a common query, we index our tables by these fields. We can follow the approaches discussed in chapter 4 to scale SQL reads.</span></p>
+<p class="c4"><span class="c1">We can define the following schema to allow a sharer to grant a viewer permission to view the former’s photos and a viewer to favorite photos. An alternative to using two tables is to define an </span><span class="c30">is_favorite</span><span class="c2 c13">&nbsp;Boolean column in the Share table, but the tradeoff is that it will be a sparse column that uses unnecessary storage:</span></p>
+<p class="c3"><span class="c7">CREATE TABLE Share (</span></p>
+<p class="c3"><span class="c7">&nbsp; id &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT PRIMARY KEY</span></p>
+<p class="c3"><span class="c7">&nbsp; cdn_photo_key VARCHAR(255),</span></p>
+<p class="c3"><span class="c7">&nbsp; user_id &nbsp; &nbsp; &nbsp; VARCHAR(255)</span></p>
+<p class="c3"><span class="c7">);</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">CREATE TABLE Favorite (</span></p>
+<p class="c3"><span class="c7">&nbsp; id INT PRIMARY KEY</span></p>
+<p class="c3"><span class="c7">&nbsp; cdn_photo_key VARCHAR(255) NOT NULL UNIQUE,</span></p>
+<p class="c3"><span class="c7">&nbsp; user_id VARCHAR(255) NOT NULL UNIQUE</span></p>
+<p class="c74 c13"><span class="c7">);</span></p>

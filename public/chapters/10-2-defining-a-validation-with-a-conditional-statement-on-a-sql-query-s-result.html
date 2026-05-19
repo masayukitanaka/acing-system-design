@@ -1,0 +1,50 @@
+<p class="c9"><span class="c2 c13">Terminology clarification: A table has rows and columns. An entry in a particular (row, column) coordinate can be referred to as a cell, element, datapoint, or value. In this chapter, we use these terms interchangeably.</span></p>
+<p class="c9"><span class="c2 c13">Let’s discuss how a manually defined validation can be defined by comparison operators on the results of a SQL query. The result of a SQL query is a 2D array, which we will name “result”. We can define a conditional statement on result. Let’s go over some examples. All these examples are daily validations, so we validate only yesterday’s rows, and our example queries have the WHERE clause “Date(timestamp) &gt; Curdate() - INTERVAL 1 DAY”. In each example, we describe a validation, followed by its SQL query and then possible conditional statements.</span></p>
+<p class="c9"><span class="c2 c13">Manually defined validations can be defined on</span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0 start"><li class="c18 li-bullet-0"><span class="c0">Individual datapoints of a column</span><span class="c2 c13">—An example is the “latest timestamp is &lt; 24 hours old” that we discussed previously.</span></li></ul>
+<p class="c3"><span class="c7">SELECT COUNT(*) AS cnt </span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">WHERE Date(timestamp) &gt;= Curdate() - INTERVAL 1 DAY</span></li><li class="c18 li-bullet-0"><span class="c1">Possible true conditional statements are </span><span class="c30">result[0][0] &gt; 0</span><span class="c1">&nbsp;and </span><span class="c30">result['cnt'][0] &gt; 0</span><span class="c2 c13">.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">Let’s discuss another example. If a particular coupon code ID expires on a certain date, we can define a periodic validation on our transactions table that raises an alert if this code ID appears after this date. This may indicate that coupon code IDs are being recorded incorrectly.</span></li></ul>
+<p class="c3"><span class="c7">SELECT COUNT(*) AS cnt</span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<p class="c3"><span class="c7">WHERE code_id = @code_id AND Date(timestamp) &gt; @date </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c16">➥</span><span class="c7">AND Date(timestamp) = Curdate() - INTERVAL 1 DAY</span></li><li class="c18 li-bullet-0"><span class="c1">Possible true conditional statements are </span><span class="c30">result[0][0] == 0</span><span class="c1">&nbsp;and: </span><span class="c30">result['cnt'][0] == 0</span><span class="c2 c13">.</span></li><li class="c38 li-bullet-0"><span class="c0">Multiple datapoints of a column—</span><span class="c2 c13">For example, if an individual app user cannot make more than five purchases per day, we can define a daily validation on our transactions table that raises an alert if there are more than five rows for any user ID since the previous day. This may indicate bugs, that a user was erroneously able to make more than five purchases that day, or that purchases are being incorrectly recorded.</span></li></ul>
+<p class="c3"><span class="c7">SELECT user_id, count(*) AS cnt</span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<p class="c3"><span class="c7">WHERE Date(timestamp) = Curdate() - INTERVAL 1 DAY </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">GROUP BY user_id</span></li><li class="c18 li-bullet-0"><span class="c1">The conditional statement is </span><span class="c30">result.length &lt;= 5</span><span class="c2 c13">.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">Another possibility:</span></li></ul>
+<p class="c3"><span class="c7">SELECT * </span></p>
+<p class="c3"><span class="c7">FROM ( </span></p>
+<p class="c3"><span class="c7">&nbsp; SELECT user_id, count(*) AS cnt</span></p>
+<p class="c3"><span class="c7">FROM Transactions</span></p>
+<p class="c3"><span class="c7">&nbsp; WHERE Date(timestamp) = Curdate() - INTERVAL 1 DAY </span></p>
+<p class="c3"><span class="c7">&nbsp; GROUP BY user_id </span></p>
+<p class="c3"><span class="c7">) AS yesterday_user_counts </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">WHERE cnt &gt; 5;</span></li><li class="c18 li-bullet-0"><span class="c1">The conditional statement is </span><span class="c30">result.length == 0</span><span class="c2 c13">.</span></li><li class="c38 li-bullet-0"><span class="c0">Multiple columns in a single row—</span><span class="c2 c13">For example, the total number of sales that uses a particular coupon code cannot exceed 100 per day.</span></li></ul>
+<p class="c3"><span class="c7">SELECT count(*) AS cnt</span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<p class="c3"><span class="c7">WHERE Date(timestamp) = Curdate() - INTERVAL 1 DAY </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c16">➥</span><span class="c7">AND coupon_code = @coupon_code</span></li><li class="c18 li-bullet-0"><span class="c1">The conditional statement is </span><span class="c30">result.length &lt;= 100</span><span class="c2 c13">.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">An alternative query and conditional statement are as follows:</span></li></ul>
+<p class="c3"><span class="c7">SELECT *</span></p>
+<p class="c3"><span class="c7">FROM ( </span></p>
+<p class="c3"><span class="c7">&nbsp; SELECT count(*) AS cnt</span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<p class="c3"><span class="c7">WHERE Date(timestamp) = Curdate() - INTERVAL 1 DAY </span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">AND coupon_code = @coupon_code </span></p>
+<p class="c3"><span class="c7">) AS yesterday_user_counts </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">WHERE cnt &gt; 100;</span></li><li class="c18 li-bullet-0"><span class="c1">The conditional statement is </span><span class="c30">result.length == 0</span><span class="c2 c13">.</span></li><li class="c38 li-bullet-0"><span class="c0">Multiple tables—</span><span class="c2 c13">For example, if we have a fact table sales_na to record sales in North America, that has a country_code column, we can create a dimension table country_codes that has a list of country codes for each geographical region. We can define a periodic validation that checks that all new rows have country_code values of countries within North America:</span></li></ul>
+<p class="c3"><span class="c7">SELECT * </span></p>
+<p class="c3"><span class="c7">FROM sales_na S JOIN country_codes C ON S.country_code = C.id </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">WHERE C.region != 'NA';</span></li><li class="c18 li-bullet-0"><span class="c1">The conditional statement is </span><span class="c30">result.length == 0</span><span class="c2 c13">.</span></li><li class="c38 li-bullet-0"><span class="c0">A conditional statement on multiple queries—</span><span class="c1">For example, we may wish to raise an alert if the number of sales on a day changes by more than 10% compared to the same day last week. We can run two queries and compare their results as follows. We append the query results to a </span><span class="c86 c13">result</span><span class="c1">&nbsp;array, so this </span><span class="c86 c13">result</span><span class="c2 c13">&nbsp;array is 3D instead of 2D:</span></li></ul>
+<p class="c3"><span class="c7">SELECT COUNT(*)</span></p>
+<p class="c3"><span class="c7">FROM sales</span></p>
+<p class="c3"><span class="c7">WHERE Date(timestamp) = Curdate()</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">SELECT COUNT(*)</span></p>
+<p class="c3"><span class="c7">FROM sales</span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">WHERE Date(timestamp) = Curdate() - INTERVAL 7 DAY</span></li></ul>
+<p class="c4"><span class="c1">The conditional statement is </span><span class="c30">Math.abs(result[0][0][0] – result[1][0][0]) / result[0][0][0] &lt; 0.1</span><span class="c2 c13">.</span></p>
+<p class="c4"><span class="c2 c13">There are countless other possibilities for manually defined validations, such as:</span></p>
+<ul class="c8 lst-kix_xk3hy55n681n-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">A minimum number of new rows can be written each hour to a table.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">A particular string column cannot contain null values, and string lengths must be between 1 and 255.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">A particular string column must have values that match a particular regex.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">A particular integer column should be nonnegative.</span></li></ul>
+<p class="c9"><span class="c1">Some of these types of constraints can also be implemented by function annotations in ORM libraries (e.g., </span><span class="c30">@NotNull</span><span class="c1">&nbsp;and </span><span class="c30">@Length(min = 0, max = 255)</span><span class="c2 c13">) in Hibernate or constraint types in Golang’s SQL package. In this case, our auditing service serves as an additional layer of validation. Failed audits indicate silent errors in our service, which we should investigate.</span></p>
+<p class="c9"><span class="c2 c13">This section’s examples were in SQL. We can generalize this concept to define validation queries in other query languages like HiveQL, Trino (formerly called PrestoSQL), or Spark. Though our design focuses on defining queries using database query languages, we can also define validation functions in general purpose programming languages.</span></p>

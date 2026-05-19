@@ -1,0 +1,56 @@
+<p class="c9"><span class="c2 c13">A batch job may take many hours to complete, which will affect the rollups for all intervals. For example, the Hive query for the latest hourly rollup job may take 30 minutes to complete, so the following rollups and by extension their Top K lists will be unavailable:</span></p>
+<ul class="c8 lst-kix_gt7dr6wbsr0m-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">The Top K list for that hour.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">The Top K list for the day that contains that hour will be unavailable.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">The Top K lists for the week and month that contains that day will be unavailable.</span></li></ul>
+<p class="c9"><span class="c2 c13">The purpose of our streaming pipeline is to provide the counts (and Top K lists) that the batch pipeline has not yet provided. The streaming pipeline must compute these counts much faster than the batch pipeline and may use approximation techniques.</span></p>
+<p class="c4"><span class="c2 c13">After our initial aggregation, the next steps are to compute the final counts and sort them in descending order, and then we will have our Top K lists. In this section, we approach this problem by first considering an approach for a single host and then find how to make it horizontally scalable.</span></p>
+<h3 class="c34 c13" id="h.td7q1cnb7s0w"><span class="c46 c11 c13">17.6.1 Hash table and max-heap with a single host</span></h3>
+<p class="c9"><span class="c2 c13">Our first attempt is to use a hash table and sort by frequency counts using a max-heap of size K. Listing 17.1 is a sample top K Golang function with this approach.</span></p>
+<p class="c44 c100"><span class="c101 c95 c13">Listing 17.1 Sample Golang function to compute Top K list</span></p>
+<p class="c3"><span class="c7">type HeavyHitter struct { </span></p>
+<p class="c3"><span class="c7">&nbsp; identifier string </span></p>
+<p class="c3"><span class="c7">&nbsp; frequency int </span></p>
+<p class="c3"><span class="c7">} </span></p>
+<p class="c3"><span class="c7">func topK(events []String, int k) (HeavyHitter) { </span></p>
+<p class="c3"><span class="c7">&nbsp; frequencyTable := make(map[string]int) </span></p>
+<p class="c3"><span class="c7">&nbsp; for _, event := range events { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; value := frequencyTable[event] </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; if value == 0 { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; frequencyTable[event] = 1 </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; } else { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; frequencyTable[event] = value + 1 </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; pq = make(PriorityQueue, k) </span></p>
+<p class="c3"><span class="c7">&nbsp; i := 0 </span></p>
+<p class="c3"><span class="c7">&nbsp; for key, element := range frequencyTable { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; pq[i++] = &amp;HeavyHitter{ </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; identifier: key, </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; frequency: element </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; if pq.Len() &gt; k { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; pq.Pop(&amp;pq).(*HeavyHitter) </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; /* &nbsp;</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp;* Write the heap contents to your destination.</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp;* Here we just return them in an array.</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp;*/ </span></p>
+<p class="c3"><span class="c7">&nbsp; var result [k]HeavyHitter </span></p>
+<p class="c3"><span class="c7">&nbsp; i := 0 </span></p>
+<p class="c3"><span class="c7">&nbsp; for pq.Len() &gt; 0 { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; result[i++] = pq.Pop(&amp;pq).(*HeavyHitter) </span></p>
+<p class="c3"><span class="c7">&nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; return result </span></p>
+<p class="c74 c13"><span class="c7">}</span></p>
+<p class="c9"><span class="c2 c13">In our system, we can run multiple instances of the function in parallel for our various time buckets (i.e., hour, day, week, month, and year). At the end of each period, we can store the contents of the max-heap, reset the counts to 0, and start counting for the new period.</span></p>
+<h3 class="c34 c13" id="h.wq94gro6f3u5"><span class="c46 c11 c13">17.6.2 Horizontal scaling to multiple hosts and multi-tier aggregation</span></h3>
+<p class="c9"><span class="c2 c13">Figure 17.5 illustrates horizontal scaling to multiple hosts and multi-tier aggregation. The two hosts in the middle column sum the (product, hour) counts from their upstream hosts in the left column, while the max-heaps in the right column aggregate the (product, hour) counts from their upstream hosts in the middle column.</span></p>
+<p class="c17 c13"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 464.00px;"><img alt="" src="/images/image107.png" style="width: 624.00px; height: 464.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""></span></p>
+<p class="c17 c13"><span class="c43 c11 c13">Figure 17.5 If the traffic to the final hash table host is too high, we can use a multi-tier approach for our streaming pipeline. For brevity, we display a key in the format (product, hour). For example, “(A, 0)” refers to product A at hour 0. Our final layer of hosts can contain max heaps, one for each rollup interval. This design is very similar to a multi-tier aggregation service discussed in section 4.5.2. Each host has an associated Kafka topic, which we don’t illustrate here.</span></p>
+<p class="c9"><span class="c2 c13">In this approach, we insert more tiers between the first layer of hosts and the final hash table host, so no host gets more traffic than it can process. This is simply shifting the complexity of implementing a multi-tier aggregation service from our aggregation service to our streaming pipeline. The solution will introduce latency, as also described in section 4.5.2. We also do partitioning, following the approach described in section 4.5.3 and illustrated in figure 4.6. Note the discussion points in that section about addressing hot partitions. We partition by product ID. We may also partition by sales event timestamp.</span></p>
+<p class="c4"><span class="c2 c13">Aggregation</span></p>
+<p class="c4"><span class="c2 c13">Notice that we aggregate by the combination of product ID and timestamp. Before reading on, think about why.</span></p>
+<p class="c9"><span class="c2 c13">Why do we aggregate by the combination of product ID and timestamp? This is because a Top K list has a period, with a start time and an end time. We need to ensure that each sales event is aggregated in its correct time ranges. For example, a sales event that occurred at 2023-01-01 10:08 UTC should be aggregated in</span></p>
+<ol class="c8 lst-kix_qnkswonhlbs4-0 start" start="1"><li class="c18 li-bullet-0"><span class="c2 c13">The hour range of [2023-01-01 10:08 UTC, 2023-01-01 11:00 UTC).</span></li><li class="c18 li-bullet-0"><span class="c2 c13">The day range of [2023-01-01, 2023-01-02).</span></li><li class="c18 li-bullet-0"><span class="c2 c13">The week range of [2022-12-28 00:00 UTC, 2023-01-05 00:00 UTC). 2022-12-28 and 2023-01-05 are both Mondays.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">The month range of [2023-01-01, 2013-02-01).</span></li><li class="c18 li-bullet-0"><span class="c2 c13">The year range of [2023, 2024).</span></li></ol>
+<p class="c4"><span class="c2 c13">Our approach is to aggregate by the smallest period (i.e., hour). We expect any event to take only a few seconds to go through all the layers in our cluster, so it is unlikely for any key in our cluster that is more than an hour old. Each product ID has its own key. With the hour range appended to each key, it is unlikely that the number of keys will be greater than the number of product IDs times two.</span></p>
+<p class="c4"><span class="c1">One minute after the end of a period—for example, at 2023-01-01 11:01 UTC for [2023-01-01 10:08 UTC, 2023-01-01 11:00 UTC) or 2023-01-02 00:01 UTC for [2023-01-01, 2023-01-02)—the respective host in the final layer (whom we can refer to as </span><span class="c0">final hosts</span><span class="c2 c13">) can write its heap to our SQL speed_table, and then our dashboard is ready to display the corresponding Top K list for this period. Occasionally, an event may take more than a minute to go through all the layers, and then the final hosts can simply write their updated heaps to our speed_table. We can set a retention period of a few hours or days for our final hosts to retain old aggregation keys, after which they can delete them.</span></p>
+<p class="c4"><span class="c2 c13">An alternative to waiting one minute is to implement a system to keep track of the events as they pass through the hosts and trigger the final hosts to write their heaps to the speed_table only after all the relevant events have reached the final hosts. However, this may be overly complex and also prevents our dashboard from displaying approximations before all events have been fully processed.</span></p>

@@ -1,0 +1,15 @@
+<p class="c9"><span class="c2 c13">Let’s discuss one way to organize CDN directories. A directory hierarchy can be user &gt; album &gt; resolution &gt; file. We can also consider date because a user may be more interested in recent files.</span></p>
+<p class="c4"><span class="c2 c13">Each user has their own CDN directory. We may allow a user to create albums, where each album has 0 or more photos. Mapping of albums to photos is one-to-many; that is, each photo can only belong to one album. On our CDN, we can place photos not in albums in an album called “default.” So, a user directory may have one or more album directories.</span></p>
+<p class="c4"><span class="c2 c13">An album directory can store the several files of the image in various resolutions, each in its own directory, and a JSON image metadata file. For example, a directory “original” may contain an originally-uploaded file “swans.png,” and a directory “thumbnail” may contain the generated thumbnail “swans_thumbnail.png.”</span></p>
+<p class="c9"><span class="c2 c13">A CdnPath value template is &lt;album_name&gt;/&lt;resolution&gt;/&lt;image_name.extension&gt;. The user ID or name is not required because it is contained in the UserId field.</span></p>
+<p class="c4"><span class="c2 c13">For example, a user with username “alice” may create an album named “nature,” inside which they place an image called “swans.png.” The CdnPath value is “nature/original/swans.png.” The corresponding thumbnail has CdnPath “nature/thumbnail/swans_thumbnail.png.” The tree command on our CDN will show the following. “bob” is another user:</span></p>
+<p class="c3"><span class="c7">$ tree ~ | head -n 8 </span></p>
+<p class="c3"><span class="c7">.</span></p>
+<p class="c3"><span class="c7">├── alice </span></p>
+<p class="c3"><span class="c7">│ &nbsp; └── nature </span></p>
+<p class="c3"><span class="c7">│ &nbsp; &nbsp; &nbsp; ├── original </span></p>
+<p class="c3"><span class="c7">│ &nbsp; &nbsp; &nbsp; │ &nbsp; └── swans.png </span></p>
+<p class="c3"><span class="c7">│ &nbsp; &nbsp; &nbsp; └── thumbnail </span></p>
+<p class="c3"><span class="c7">│ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; └── swans_thumbnail.png </span></p>
+<p class="c74 c13"><span class="c7">├── bob</span></p>
+<p class="c4"><span class="c2 c13">In the rest of this discussion, we use the terms “image” and “file” interchangeably.</span></p>

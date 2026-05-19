@@ -2,38 +2,104 @@ import { useState, useEffect } from 'react'
 import { Routes, Route, Link, useParams } from 'react-router-dom'
 import './App.css'
 import chaptersData from './data/chapters.json'
+import { useLanguage } from './contexts/LanguageContext'
 
-interface Chapter {
+interface ChapterMetadata {
   id: string
   title: string
+  htmlPath: string
+  title_ja?: string
+}
+
+interface Chapter extends ChapterMetadata {
   content: string
+  content_ja?: string
 }
 
 function ChapterView() {
   const { chapterId } = useParams<{ chapterId: string }>()
   const [chapter, setChapter] = useState<Chapter | null>(null)
   const [currentIndex, setCurrentIndex] = useState<number>(-1)
+  const [loading, setLoading] = useState<boolean>(true)
+  const { t, language } = useLanguage()
 
   useEffect(() => {
-    const index = chaptersData.findIndex(ch => ch.id === chapterId)
-    if (index !== -1) {
-      setChapter(chaptersData[index] as Chapter)
+    const loadChapter = async () => {
+      setLoading(true)
+      const index = chaptersData.findIndex(ch => ch.id === chapterId)
+
+      if (index === -1) {
+        setChapter(null)
+        setLoading(false)
+        return
+      }
+
+      const chapterMeta = chaptersData[index] as ChapterMetadata
       setCurrentIndex(index)
+
+      try {
+        // Load HTML content from individual file
+        const response = await fetch(chapterMeta.htmlPath)
+        const content = await response.text()
+
+        // Try to load Japanese version if available
+        let content_ja = content // Default to English content
+        if (language === 'ja') {
+          try {
+            const jaPath = chapterMeta.htmlPath.replace('.html', '-ja.html')
+            const jaResponse = await fetch(jaPath)
+            if (jaResponse.ok) {
+              content_ja = await jaResponse.text()
+            }
+          } catch (e) {
+            // Japanese version not available, use English
+          }
+        }
+
+        setChapter({
+          ...chapterMeta,
+          content,
+          content_ja
+        })
+      } catch (error) {
+        console.error('Error loading chapter:', error)
+        setChapter(null)
+      } finally {
+        setLoading(false)
+      }
     }
+
+    loadChapter()
+  }, [chapterId, language])
+
+  useEffect(() => {
+    // Scroll to top when changing chapters
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [chapterId])
 
+  if (loading) {
+    return (
+      <div className="content">
+        <div className="loading">Loading...</div>
+      </div>
+    )
+  }
+
   if (!chapter) {
-    return <div className="content"><h1>Chapter not found</h1></div>
+    return <div className="content"><h1>{t('error.chapterNotFound')}</h1></div>
   }
 
   const previousChapter = currentIndex > 0 ? chaptersData[currentIndex - 1] : null
   const nextChapter = currentIndex < chaptersData.length - 1 ? chaptersData[currentIndex + 1] : null
 
+  const displayTitle = language === 'ja' && chapter.title_ja ? chapter.title_ja : chapter.title
+  const displayContent = language === 'ja' && chapter.content_ja ? chapter.content_ja : chapter.content
+
   return (
     <main className="content">
       <article>
-        <h1>{chapter.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: chapter.content }} />
+        <h1>{displayTitle}</h1>
+        <div dangerouslySetInnerHTML={{ __html: displayContent }} />
       </article>
 
       {/* Navigation buttons */}
@@ -42,8 +108,10 @@ function ChapterView() {
           <Link to={`/chapter/${previousChapter.id}`} className="nav-button prev-button">
             <span className="nav-arrow">←</span>
             <span className="nav-text">
-              <span className="nav-label">Previous</span>
-              <span className="nav-title">{previousChapter.title}</span>
+              <span className="nav-label">{t('nav.previous')}</span>
+              <span className="nav-title">
+                {language === 'ja' && previousChapter.title_ja ? previousChapter.title_ja : previousChapter.title}
+              </span>
             </span>
           </Link>
         ) : (
@@ -53,8 +121,10 @@ function ChapterView() {
         {nextChapter ? (
           <Link to={`/chapter/${nextChapter.id}`} className="nav-button next-button">
             <span className="nav-text">
-              <span className="nav-label">Next</span>
-              <span className="nav-title">{nextChapter.title}</span>
+              <span className="nav-label">{t('nav.next')}</span>
+              <span className="nav-title">
+                {language === 'ja' && nextChapter.title_ja ? nextChapter.title_ja : nextChapter.title}
+              </span>
             </span>
             <span className="nav-arrow">→</span>
           </Link>
@@ -67,18 +137,14 @@ function ChapterView() {
 }
 
 function Home() {
+  const { t } = useLanguage()
+
   return (
     <main className="content">
       <article>
-        <h1>Acing the System Design Interview</h1>
-        <p>
-          Welcome to this comprehensive guide on system design interviews.
-          Use the hamburger menu to navigate through different chapters.
-        </p>
-        <p>
-          This book covers essential topics in system design, from basic concepts
-          to advanced patterns used in real-world applications.
-        </p>
+        <h1>{t('home.title')}</h1>
+        <p>{t('home.subtitle')}</p>
+        <p>{t('home.description')}</p>
       </article>
     </main>
   )
@@ -86,6 +152,7 @@ function Home() {
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { t, language, setLanguage } = useLanguage()
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen)
@@ -93,6 +160,10 @@ function App() {
 
   const closeSidebar = () => {
     setSidebarOpen(false)
+  }
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'ja' : 'en')
   }
 
   return (
@@ -108,14 +179,23 @@ function App() {
         <span></span>
       </button>
 
+      {/* Language Toggle Button */}
+      <button
+        className="language-toggle"
+        onClick={toggleLanguage}
+        aria-label="Toggle language"
+      >
+        {language === 'en' ? '🇯🇵 日本語' : '🇺🇸 English'}
+      </button>
+
       {/* Sidebar Navigation */}
       <nav className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-        <h2>Table of Contents</h2>
+        <h2>{t('nav.tableOfContents')}</h2>
         <ul>
           {chaptersData.map((chapter) => (
             <li key={chapter.id}>
               <Link to={`/chapter/${chapter.id}`} onClick={closeSidebar}>
-                {chapter.title}
+                {language === 'ja' && chapter.title_ja ? chapter.title_ja : chapter.title}
               </Link>
             </li>
           ))}

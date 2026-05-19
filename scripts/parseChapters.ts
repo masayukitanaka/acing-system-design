@@ -68,15 +68,33 @@ function parseChaptersFromHTML(htmlPath: string): Chapter[] {
 // Parse the HTML file
 const htmlPath = path.join(__dirname, '../data/AcingtheSystemDesignInterviewbyZhiyongTan.html')
 const outputPath = path.join(__dirname, '../src/data/chapters.json')
+const htmlOutputDir = path.join(__dirname, '../public/chapters')
 
 try {
   const chapters = parseChaptersFromHTML(htmlPath)
 
+  // Create chapters directory
+  fs.mkdirSync(htmlOutputDir, { recursive: true })
+
+  // Save each chapter's HTML to a separate file
+  chapters.forEach((chapter) => {
+    const chapterHtmlPath = path.join(htmlOutputDir, `${chapter.id}.html`)
+    fs.writeFileSync(chapterHtmlPath, chapter.content, 'utf-8')
+  })
+
+  // Create a metadata-only JSON file (without content)
+  const chaptersMetadata = chapters.map(({ id, title }) => ({
+    id,
+    title,
+    htmlPath: `/chapters/${id}.html`
+  }))
+
   // Save to JSON file
   fs.mkdirSync(path.dirname(outputPath), { recursive: true })
-  fs.writeFileSync(outputPath, JSON.stringify(chapters, null, 2))
+  fs.writeFileSync(outputPath, JSON.stringify(chaptersMetadata, null, 2))
 
   console.log(`✅ Parsed ${chapters.length} chapters`)
+  console.log(`✅ Saved ${chapters.length} individual HTML files to ${htmlOutputDir}`)
   console.log('Sample chapters:')
   chapters.slice(0, 5).forEach((ch, idx) => {
     console.log(`  ${idx + 1}. ${ch.title} (ID: ${ch.id})`)

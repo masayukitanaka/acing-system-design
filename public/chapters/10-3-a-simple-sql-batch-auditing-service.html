@@ -1,0 +1,139 @@
+<p class="c9"><span class="c2 c13">In this section, we first discuss a simple script for auditing a SQL table. Next, we discuss how we can create a batch auditing job from this script.</span></p>
+<h3 class="c34 c13" id="h.40o5nkbos8wz"><span class="c46 c11 c13">10.3.1 An audit script</span></h3>
+<p class="c9"><span class="c2 c13">The simplest form of a batch auditing job is a script that does the following steps:</span></p>
+<ol class="c8 lst-kix_dzifwi4zr0md-0 start" start="1"><li class="c18 li-bullet-0"><span class="c2 c13">Runs a database query</span></li><li class="c18 li-bullet-0"><span class="c2 c13">Reads the result into a variable</span></li><li class="c18 li-bullet-0"><span class="c2 c13">Checks the value of this variable against certain conditions</span></li></ol>
+<p class="c4"><span class="c2 c13">The example Python script in the following listing runs a MySQL query that checks if the latest timestamp of our transactions table is &lt; 24 hours old and prints the result to console.</span></p>
+<p class="c44 c100"><span class="c101 c95 c13">Listing 10.1 Python script and MySQL query to check the latest timestamp</span></p>
+<p class="c3"><span class="c7">import mysql</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">cnx = mysql.connector.connect(user='admin', password='password',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host='127.0.0.1',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;database='transactions')</span></p>
+<p class="c3"><span class="c7">cursor = cnx.cursor()</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">query = """</span></p>
+<p class="c3"><span class="c7">SELECT COUNT(*) AS cnt </span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<p class="c3"><span class="c7">WHERE Date(timestamp) &gt;= Curdate() - INTERVAL 1 DAY </span></p>
+<p class="c3"><span class="c7">"""</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">cursor.execute(query)</span></p>
+<p class="c3"><span class="c7">results = cursor.fetchall()</span></p>
+<p class="c3"><span class="c7">cursor.close()</span></p>
+<p class="c3"><span class="c7">cnx.close()</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7"># result[0][0] &gt; 0 is the condition.</span></p>
+<p class="c74 c13"><span class="c7">print(result[0][0] &gt; 0) # result['cnt'][0] &gt; 0 also works.</span></p>
+<p class="c9"><span class="c2 c13">We may need to run several database queries and compare their results. Listing 10.2 is a possible example.</span></p>
+<p class="c44 c100"><span class="c95 c13 c101">Listing 10.2 An example script that compares the results of several queries</span></p>
+<p class="c3"><span class="c7">import mysql</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">queries = [</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; {</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; 'database': 'transactions',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp;'query': """</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SELECT COUNT(*) AS cnt </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; FROM Transactions </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; WHERE Date(timestamp) &gt;= Curdate() - INTERVAL 1 DAY </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; """,</span></p>
+<p class="c3"><span class="c7">},</span></p>
+<p class="c3"><span class="c7">{</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; `database': 'transactions`,</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; 'query': """</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; SELECT COUNT(*) AS cnt </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; FROM Transactions </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; WHERE Date(timestamp) &gt;= Curdate() - INTERVAL 1 DAY </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; """</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; }</span></p>
+<p class="c3"><span class="c7">]</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">results = []</span></p>
+<p class="c3"><span class="c7">for query in queries:</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;cnx = mysql.connector.connect(user='admin', password='password',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host='127.0.0.1',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;database=query['database'])</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; cursor = cnx.cursor()</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;cursor.execute(query['query'])</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;results.append(cursor.fetchall())</span></p>
+<p class="c3"><span class="c7">cursor.close()</span></p>
+<p class="c3"><span class="c7">cnx.close()</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c74 c13"><span class="c7">print(result[0][0][0] &gt; result[1][0][0])</span></p>
+<h3 class="c34 c13" id="h.6c8djsy9ld18"><span class="c46 c11 c13">10.3.2 An audit service</span></h3>
+<p class="c9"><span class="c2 c13">Next, let’s extend this to a batch auditing service. We can generalize the script to allow a user to specify</span></p>
+<ol class="c8 lst-kix_d5azjqusmgss-0 start" start="1"><li class="c18 li-bullet-0"><span class="c2 c13">The SQL databases and queries.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">The condition that will be run on the query result.</span></li></ol>
+<p class="c4"><span class="c1">Let’s implement a Python file template that we can name </span><span class="c86 c13">validation.py.template</span><span class="c2 c13">. Listing 10.3 is a possible implementation of this file. This is a simplified implementation. The batch auditing job is divided into two phases:</span></p>
+<ol class="c8 lst-kix_yjcjfycs0kdw-0 start" start="1"><li class="c18 li-bullet-0"><span class="c2 c13">Run the database queries and use their results to determine whether the audit passed or failed.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">If the audit failed, trigger an alert.</span></li></ol>
+<p class="c9"><span class="c2 c13">In a practical implementation, the login credentials will be supplied by a secrets management service, and the host is read from a configuration file. These details are outside the scope of this question. The user story for this service can be as follows:</span></p>
+<ol class="c8 lst-kix_wyc4sh7aa27o-0 start" start="1"><li class="c18 li-bullet-0"><span class="c2 c13">The user logs in to the service and creates a new batch auditing job.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">The user inputs the values for database, queries, and condition.</span></li><li class="c18 li-bullet-0"><span class="c1">Our service will create a validation.py file from this </span><span class="c30">validation.py.template</span><span class="c1">&nbsp;and replace the parameters like </span><span class="c30">{database}</span><span class="c2 c13">&nbsp;with the user’s input values.</span></li><li class="c18 li-bullet-0"><span class="c2 c13">Our service creates a new Airflow or cron job that imports validation.py and runs the validation function.</span></li></ol>
+<p class="c4"><span class="c2 c13">We may notice that these validation.py files are essentially functions. A batch ETL service stores functions rather than objects.</span></p>
+<p class="c9"><span class="c1">We commented in the </span><span class="c30">validation.py.template</span><span class="c2 c13">&nbsp;that we should create an Airflow task for each database query. Our backend should generate such a validation.py file. This will be a good coding interview exercise but is outside the scope of a system design interview.</span></p>
+<p class="c58"><span class="c101 c95 c13">Listing 10.3 A Python file template for an audit service</span></p>
+<p class="c3"><span class="c7">from datetime import datetime, timedelta</span></p>
+<p class="c3"><span class="c7">from airflow import DAG</span></p>
+<p class="c3"><span class="c7">from airflow.operators.bash import BranchPythonOperator</span></p>
+<p class="c3"><span class="c7">import mysql.connector</span></p>
+<p class="c3"><span class="c7">import os</span></p>
+<p class="c3"><span class="c7">import pdpyras</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7"># Example user inputs:</span></p>
+<p class="c3"><span class="c7"># {name} – ''</span></p>
+<p class="c3"><span class="c7"># {queries} – ['', '']</span></p>
+<p class="c3"><span class="c7"># {condition} – result[0][0][0] result[1][0][0]</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">def _validation():</span></p>
+<p class="c3"><span class="c7">&nbsp; results = []</span></p>
+<p class="c3"><span class="c7">&nbsp; # Database queries are expensive. An issue with running every query here</span></p>
+<p class="c3"><span class="c7">&nbsp; # is that if a query fails, all queries need to be rerun.</span></p>
+<p class="c3"><span class="c7">&nbsp; # We can consider instead creating an Airflow task for each query.</span></p>
+<p class="c3"><span class="c7">&nbsp; for query in {queries}:</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; cnx = mysql.connector.connect(user='admin', password='password',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host='127.0.0.1',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;database=query['database'])</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; cursor = cnx.cursor()</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; cursor.execute(query['query'])</span></p>
+<p class="c3"><span class="c7">&nbsp; results.append(cursor.fetchall())</span></p>
+<p class="c3"><span class="c7">&nbsp; cursor.close()</span></p>
+<p class="c3"><span class="c7">&nbsp; cnx.close()</span></p>
+<p class="c3"><span class="c7">&nbsp; # XCom is an Airflow feature to share data between tasks.</span></p>
+<p class="c3"><span class="c7">&nbsp; ti.xcom_push(key='validation_result_{name}', value={condition})</span></p>
+<p class="c3"><span class="c7">&nbsp; </span></p>
+<p class="c3"><span class="c7">def _alert():</span></p>
+<p class="c3"><span class="c7">&nbsp; # Some sample code to trigger a PagerDuty alert if the audit failed.</span></p>
+<p class="c3"><span class="c7">&nbsp; # This is just an example and should not be taken as working code.</span></p>
+<p class="c3"><span class="c7">&nbsp; # We may also wish to send this result to our Backend Service.</span></p>
+<p class="c3"><span class="c7">&nbsp; # This is discussed later in this chapter.</span></p>
+<p class="c3"><span class="c7">&nbsp; result = ti.xcom_pull(key='validation_result_{name}')</span></p>
+<p class="c3"><span class="c7">&nbsp; if result:</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; routing_key = os.environ['PD_API_KEY']</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; session = pdpyras.EventsAPISession(routing_key)</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; dedup_key = session.trigger("{name} validation failed", "audit")</span></p>
+<p class="c3"><span class="c7">&nbsp;</span></p>
+<p class="c3"><span class="c7">with DAG(</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; {name},</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; default_args={</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'depends_on_past': False,</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'email': ['zhiyong@beigel.com'],</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'email_on_failure': True,</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'email_on_retry': False,</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'retries': 1,</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'retry_delay': timedelta(minutes=5),</span></p>
+<p class="c3"><span class="c7">&nbsp;},</span></p>
+<p class="c3"><span class="c7">&nbsp;description={description},</span></p>
+<p class="c3"><span class="c7">&nbsp;schedule_interval=timedelta(days=1),</span></p>
+<p class="c3"><span class="c7">&nbsp;start_date=datetime(2023, 1, 1),</span></p>
+<p class="c3"><span class="c7">&nbsp;catchup=False,</span></p>
+<p class="c3"><span class="c7">&nbsp;tags=['validation', {name}],</span></p>
+<p class="c3"><span class="c7">) as dag:</span></p>
+<p class="c3"><span class="c7">&nbsp;t1 = BranchPythonOperator(</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;task_id='validation',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;python_callable=_validation</span></p>
+<p class="c3"><span class="c7">&nbsp;)</span></p>
+<p class="c3"><span class="c7">&nbsp;# Alerting is a separate Airflow task, so in case the alert fails,</span></p>
+<p class="c3"><span class="c7">&nbsp;# the Airflow job does not rerun the expensive validation function.</span></p>
+<p class="c3"><span class="c7">&nbsp;t2 = BranchPythonOperator(</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;task_id='alert',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;python_callable=_alert</span></p>
+<p class="c3"><span class="c7">&nbsp;)</span></p>
+<p class="c74 c13"><span class="c7">&nbsp;t1 &gt;&gt; t2</span></p>

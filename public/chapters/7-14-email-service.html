@@ -1,0 +1,3 @@
+<p class="c9"><span class="c2">Our backend can send requests to a shared email service for sending email.</span></p>
+<p class="c4"><span class="c2">To send a renewal reminder to posters when a post is seven days old, this can be implemented as a batch ETL job that queries our SQL database for posts that are seven days old and then requests the email service to send an email for each post.</span></p>
+<p class="c4"><span class="c2">The notification service for other apps may have requirements such as handling unpredictable traffic spikes, low latency, and notifications should be delivered within a short time. Such a notification service is discussed in the next chapter.</span></p>

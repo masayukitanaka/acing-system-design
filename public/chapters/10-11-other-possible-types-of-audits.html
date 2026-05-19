@@ -1,0 +1,5 @@
+<p class="c4"><span class="c2 c13">Besides the audits/tests discussed so far, we may also discuss other types of tests such as the following.</span></p>
+<h3 class="c34 c13" id="h.qg2bf29pxu2b"><span class="c46 c11 c13">10.11.1 Cross data center consistency audits</span></h3>
+<p class="c9"><span class="c2 c13">It is common for the same data to be stored in multiple data centers. To ensure data consistency across data centers, our database batch auditing service may provide the ability to run sampling tests to compare data across data centers.</span></p>
+<h3 class="c34 c13" id="h.yhqk5ljlsx5n"><span class="c46 c11 c13">10.11.2 Compare upstream and downstream data</span></h3>
+<p class="c9"><span class="c2 c13">Referring to section 7.7 on data migrations, a user may need to copy data from one table to another. They can create an audit job to compare the latest partitions in the upstream and downstream tables to ensure data consistency.</span></p>
