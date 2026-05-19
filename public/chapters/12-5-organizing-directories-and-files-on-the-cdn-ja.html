@@ -1,0 +1,15 @@
+<p class="c9"><span class="c2 c13">CDNのディレクトリ構成の1つの方法について議論しましょう。ディレクトリ階層は user &gt; album &gt; resolution &gt; file にできます。ユーザーは最近のファイルにより関心を持つ可能性があるため、日付も考慮できます。</span></p>
+<p class="c4"><span class="c2 c13">各ユーザーは独自のCDNディレクトリを持ちます。ユーザーがアルバムを作成できるようにし、各アルバムには0枚以上の写真があり得ます。アルバムから写真へのマッピングは1対多、すなわち各写真は1つのアルバムにのみ属し得ます。CDNでは、アルバムに属さない写真を「default」というアルバムに置けます。そのため、ユーザーディレクトリには1つ以上のアルバムディレクトリが含まれる可能性があります。</span></p>
+<p class="c4"><span class="c2 c13">アルバムディレクトリには、各解像度の画像ファイルを個別のディレクトリに格納し、JSONの画像メタデータファイルも格納できます。たとえば、「original」ディレクトリには元のアップロードファイル「swans.png」を、「thumbnail」ディレクトリには生成されたサムネイル「swans_thumbnail.png」を格納できます。</span></p>
+<p class="c9"><span class="c2 c13">CdnPath値のテンプレートは &lt;album_name&gt;/&lt;resolution&gt;/&lt;image_name.extension&gt; です。ユーザーIDや名前はUserIdフィールドに含まれているため不要です。</span></p>
+<p class="c4"><span class="c2 c13">たとえば、ユーザー名「alice」のユーザーが「nature」という名前のアルバムを作成し、その中に「swans.png」という画像を置いた場合、CdnPath値は「nature/original/swans.png」になります。対応するサムネイルのCdnPathは「nature/thumbnail/swans_thumbnail.png」となります。CDN上でtreeコマンドを実行すると次のように表示されます。「bob」は別のユーザーです。</span></p>
+<p class="c3"><span class="c7">$ tree ~ | head -n 8 </span></p>
+<p class="c3"><span class="c7">.</span></p>
+<p class="c3"><span class="c7">├── alice </span></p>
+<p class="c3"><span class="c7">│ &nbsp; └── nature </span></p>
+<p class="c3"><span class="c7">│ &nbsp; &nbsp; &nbsp; ├── original </span></p>
+<p class="c3"><span class="c7">│ &nbsp; &nbsp; &nbsp; │ &nbsp; └── swans.png </span></p>
+<p class="c3"><span class="c7">│ &nbsp; &nbsp; &nbsp; └── thumbnail </span></p>
+<p class="c3"><span class="c7">│ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; └── swans_thumbnail.png </span></p>
+<p class="c74 c13"><span class="c7">├── bob</span></p>
+<p class="c4"><span class="c2 c13">本章のこれ以降の議論では、「画像」と「ファイル」という用語は交換可能に使います。</span></p>

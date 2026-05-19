@@ -1,0 +1,139 @@
+<p class="c9"><span class="c2 c13">本節ではまず、SQLテーブルを監査するシンプルなスクリプトを議論します。次に、このスクリプトからどうやってバッチ監査ジョブを作成できるかを議論します。</span></p>
+<h3 class="c34 c13" id="h.40o5nkbos8wz"><span class="c46 c11 c13">10.3.1 監査スクリプト</span></h3>
+<p class="c9"><span class="c2 c13">バッチ監査ジョブの最もシンプルな形式は、次のステップを実行するスクリプトです。</span></p>
+<ol class="c8 lst-kix_dzifwi4zr0md-0 start" start="1"><li class="c18 li-bullet-0"><span class="c2 c13">データベースクエリを実行する</span></li><li class="c18 li-bullet-0"><span class="c2 c13">結果を変数に読み込む</span></li><li class="c18 li-bullet-0"><span class="c2 c13">この変数の値を特定の条件と照合する</span></li></ol>
+<p class="c4"><span class="c2 c13">次のリストにあるPythonスクリプトの例は、transactionsテーブルの最新タイムスタンプが24時間未満であるかをチェックするMySQLクエリを実行し、結果をコンソールに出力します。</span></p>
+<p class="c44 c100"><span class="c101 c95 c13">リスト10.1 最新タイムスタンプを確認するためのPythonスクリプトとMySQLクエリ</span></p>
+<p class="c3"><span class="c7">import mysql</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">cnx = mysql.connector.connect(user='admin', password='password',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host='127.0.0.1',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;database='transactions')</span></p>
+<p class="c3"><span class="c7">cursor = cnx.cursor()</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">query = """</span></p>
+<p class="c3"><span class="c7">SELECT COUNT(*) AS cnt </span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<p class="c3"><span class="c7">WHERE Date(timestamp) &gt;= Curdate() - INTERVAL 1 DAY </span></p>
+<p class="c3"><span class="c7">"""</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">cursor.execute(query)</span></p>
+<p class="c3"><span class="c7">results = cursor.fetchall()</span></p>
+<p class="c3"><span class="c7">cursor.close()</span></p>
+<p class="c3"><span class="c7">cnx.close()</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7"># result[0][0] &gt; 0 is the condition.</span></p>
+<p class="c74 c13"><span class="c7">print(result[0][0] &gt; 0) # result['cnt'][0] &gt; 0 also works.</span></p>
+<p class="c9"><span class="c2 c13">複数のデータベースクエリを実行して結果を比較する必要があるかもしれません。リスト10.2は可能な例です。</span></p>
+<p class="c44 c100"><span class="c95 c13 c101">リスト10.2 複数クエリの結果を比較するスクリプトの例</span></p>
+<p class="c3"><span class="c7">import mysql</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">queries = [</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; {</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; 'database': 'transactions',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp;'query': """</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; SELECT COUNT(*) AS cnt </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; FROM Transactions </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; WHERE Date(timestamp) &gt;= Curdate() - INTERVAL 1 DAY </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; """,</span></p>
+<p class="c3"><span class="c7">},</span></p>
+<p class="c3"><span class="c7">{</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; `database': 'transactions`,</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; 'query': """</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; SELECT COUNT(*) AS cnt </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; FROM Transactions </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; WHERE Date(timestamp) &gt;= Curdate() - INTERVAL 1 DAY </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; """</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; }</span></p>
+<p class="c3"><span class="c7">]</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">results = []</span></p>
+<p class="c3"><span class="c7">for query in queries:</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;cnx = mysql.connector.connect(user='admin', password='password',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host='127.0.0.1',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;database=query['database'])</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; cursor = cnx.cursor()</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;cursor.execute(query['query'])</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;results.append(cursor.fetchall())</span></p>
+<p class="c3"><span class="c7">cursor.close()</span></p>
+<p class="c3"><span class="c7">cnx.close()</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c74 c13"><span class="c7">print(result[0][0][0] &gt; result[1][0][0])</span></p>
+<h3 class="c34 c13" id="h.6c8djsy9ld18"><span class="c46 c11 c13">10.3.2 監査サービス</span></h3>
+<p class="c9"><span class="c2 c13">次に、これをバッチ監査サービスに拡張しましょう。スクリプトを一般化し、ユーザーが以下を指定できるようにできます。</span></p>
+<ol class="c8 lst-kix_d5azjqusmgss-0 start" start="1"><li class="c18 li-bullet-0"><span class="c2 c13">SQLデータベースとクエリ。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">クエリ結果に対して実行する条件。</span></li></ol>
+<p class="c4"><span class="c1">Pythonファイルテンプレートを実装してみましょう。これを</span><span class="c86 c13">validation.py.template</span><span class="c2 c13">と命名できます。リスト10.3はこのファイルの可能な実装です。これは簡略化された実装です。バッチ監査ジョブは2つのフェーズに分けます。</span></p>
+<ol class="c8 lst-kix_yjcjfycs0kdw-0 start" start="1"><li class="c18 li-bullet-0"><span class="c2 c13">データベースクエリを実行し、その結果から監査の合否を判定する。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">監査が失敗した場合、アラートをトリガーする。</span></li></ol>
+<p class="c9"><span class="c2 c13">実用的な実装では、ログイン認証情報はシークレット管理サービスから供給され、ホストは設定ファイルから読み取られます。これらの詳細は本問題の範囲外です。本サービスのユーザーストーリーは次のようになります。</span></p>
+<ol class="c8 lst-kix_wyc4sh7aa27o-0 start" start="1"><li class="c18 li-bullet-0"><span class="c2 c13">ユーザーがサービスにログインし、新しいバッチ監査ジョブを作成する。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">ユーザーがデータベース、クエリ、条件の値を入力する。</span></li><li class="c18 li-bullet-0"><span class="c1">サービスはこの</span><span class="c30">validation.py.template</span><span class="c1">からvalidation.pyファイルを作成し、</span><span class="c30">{database}</span><span class="c2 c13">のようなパラメータをユーザーの入力値で置き換える。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">サービスは新しいAirflowまたはcronジョブを作成し、validation.pyをインポートしてvalidation関数を実行する。</span></li></ol>
+<p class="c4"><span class="c2 c13">これらのvalidation.pyファイルは本質的に関数であることに気付くでしょう。バッチETLサービスはオブジェクトではなく関数を格納します。</span></p>
+<p class="c9"><span class="c1">先の</span><span class="c30">validation.py.template</span><span class="c2 c13">では、データベースクエリごとにAirflowタスクを作成すべきだとコメントしました。バックエンドはそのようなvalidation.pyファイルを生成すべきです。これは良いコーディング面接の演習になりますが、システム設計面接の範囲外です。</span></p>
+<p class="c58"><span class="c101 c95 c13">リスト10.3 監査サービスのためのPythonファイルテンプレート</span></p>
+<p class="c3"><span class="c7">from datetime import datetime, timedelta</span></p>
+<p class="c3"><span class="c7">from airflow import DAG</span></p>
+<p class="c3"><span class="c7">from airflow.operators.bash import BranchPythonOperator</span></p>
+<p class="c3"><span class="c7">import mysql.connector</span></p>
+<p class="c3"><span class="c7">import os</span></p>
+<p class="c3"><span class="c7">import pdpyras</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7"># Example user inputs:</span></p>
+<p class="c3"><span class="c7"># {name} – ''</span></p>
+<p class="c3"><span class="c7"># {queries} – ['', '']</span></p>
+<p class="c3"><span class="c7"># {condition} – result[0][0][0] result[1][0][0]</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">def _validation():</span></p>
+<p class="c3"><span class="c7">&nbsp; results = []</span></p>
+<p class="c3"><span class="c7">&nbsp; # Database queries are expensive. An issue with running every query here</span></p>
+<p class="c3"><span class="c7">&nbsp; # is that if a query fails, all queries need to be rerun.</span></p>
+<p class="c3"><span class="c7">&nbsp; # We can consider instead creating an Airflow task for each query.</span></p>
+<p class="c3"><span class="c7">&nbsp; for query in {queries}:</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; cnx = mysql.connector.connect(user='admin', password='password',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;host='127.0.0.1',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;database=query['database'])</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; cursor = cnx.cursor()</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; cursor.execute(query['query'])</span></p>
+<p class="c3"><span class="c7">&nbsp; results.append(cursor.fetchall())</span></p>
+<p class="c3"><span class="c7">&nbsp; cursor.close()</span></p>
+<p class="c3"><span class="c7">&nbsp; cnx.close()</span></p>
+<p class="c3"><span class="c7">&nbsp; # XCom is an Airflow feature to share data between tasks.</span></p>
+<p class="c3"><span class="c7">&nbsp; ti.xcom_push(key='validation_result_{name}', value={condition})</span></p>
+<p class="c3"><span class="c7">&nbsp; </span></p>
+<p class="c3"><span class="c7">def _alert():</span></p>
+<p class="c3"><span class="c7">&nbsp; # Some sample code to trigger a PagerDuty alert if the audit failed.</span></p>
+<p class="c3"><span class="c7">&nbsp; # This is just an example and should not be taken as working code.</span></p>
+<p class="c3"><span class="c7">&nbsp; # We may also wish to send this result to our Backend Service.</span></p>
+<p class="c3"><span class="c7">&nbsp; # This is discussed later in this chapter.</span></p>
+<p class="c3"><span class="c7">&nbsp; result = ti.xcom_pull(key='validation_result_{name}')</span></p>
+<p class="c3"><span class="c7">&nbsp; if result:</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; routing_key = os.environ['PD_API_KEY']</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; session = pdpyras.EventsAPISession(routing_key)</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; dedup_key = session.trigger("{name} validation failed", "audit")</span></p>
+<p class="c3"><span class="c7">&nbsp;</span></p>
+<p class="c3"><span class="c7">with DAG(</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; {name},</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; default_args={</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'depends_on_past': False,</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'email': ['zhiyong@beigel.com'],</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'email_on_failure': True,</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'email_on_retry': False,</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'retries': 1,</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; &nbsp;'retry_delay': timedelta(minutes=5),</span></p>
+<p class="c3"><span class="c7">&nbsp;},</span></p>
+<p class="c3"><span class="c7">&nbsp;description={description},</span></p>
+<p class="c3"><span class="c7">&nbsp;schedule_interval=timedelta(days=1),</span></p>
+<p class="c3"><span class="c7">&nbsp;start_date=datetime(2023, 1, 1),</span></p>
+<p class="c3"><span class="c7">&nbsp;catchup=False,</span></p>
+<p class="c3"><span class="c7">&nbsp;tags=['validation', {name}],</span></p>
+<p class="c3"><span class="c7">) as dag:</span></p>
+<p class="c3"><span class="c7">&nbsp;t1 = BranchPythonOperator(</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;task_id='validation',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;python_callable=_validation</span></p>
+<p class="c3"><span class="c7">&nbsp;)</span></p>
+<p class="c3"><span class="c7">&nbsp;# Alerting is a separate Airflow task, so in case the alert fails,</span></p>
+<p class="c3"><span class="c7">&nbsp;# the Airflow job does not rerun the expensive validation function.</span></p>
+<p class="c3"><span class="c7">&nbsp;t2 = BranchPythonOperator(</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;task_id='alert',</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp;python_callable=_alert</span></p>
+<p class="c3"><span class="c7">&nbsp;)</span></p>
+<p class="c74 c13"><span class="c7">&nbsp;t1 &gt;&gt; t2</span></p>

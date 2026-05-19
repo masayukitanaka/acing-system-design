@@ -1,0 +1,5 @@
+<p class="c9"><span class="c2">通知は異なる優先度レベルを持ち得ます。図9.13を参照すると、必要な優先度レベル数（2～5など）を決め、各優先度レベルごとに別個のKafkaトピックを作成できます。</span></p>
+<p class="c17 c13"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 474.67px; height: 452.00px;"><img alt="" src="/images/image37.png" style="width: 474.67px; height: 452.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""></span></p>
+<p class="c17 c13"><span class="c43 c11">図9.13 2つの優先度レベルを持つ図9.12</span></p>
+<p class="c4"><span class="c2">高優先度の通知を低優先度のものより先に処理するには、コンシューマホストが高優先度のKafkaトピックが空になるまで消費し続け、その後で低優先度のKafkaトピックを消費すればよいです。重み付けアプローチの場合は、コンシューマホストがイベントを消費する準備ができた都度、まず重み付けランダム選択を使って消費するKafkaトピックを選択します。</span></p>
+<p class="c4"><span class="c70">問い</span><span class="c2">&nbsp;各チャネルごとに異なる優先度設定を取り入れるように、システム設計を拡張してください。</span></p>

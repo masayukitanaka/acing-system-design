@@ -1,0 +1,19 @@
+<p class="c9"><span class="c2 c13">機能および非機能要件を決定するためにいくつかの質問をしましょう。Amazonまたは対象のeコマースアプリのデータセンターにアクセスできると仮定します。</span></p>
+<ul class="c8 lst-kix_a965pgkdz2ma-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">タイ（同順位）はどう処理するか？</span></li></ul>
+<p class="c9"><span class="c2 c13">高い正確性は重要でないかもしれないので、タイの中の任意のアイテムを選べます。</span></p>
+<ul class="c8 lst-kix_2iaqyaponbv-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">対象とする時間区間は何か？</span></li></ul>
+<p class="c9"><span class="c2 c13">本システムは、時間、日、週、年などの指定された区間で集約できるべきです。</span></p>
+<ul class="c8 lst-kix_2dbpeu6ngvp2-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">ユースケースは望ましい正確性（およびスケーラビリティのような他の要件）に影響します。この情報のユースケースは何か？望ましい正確性と整合性／レイテンシは何か？</span></li></ul>
+<p class="c4"><span class="c2 c13">良い質問です。何かお考えがありますか？</span></p>
+<p class="c4"><span class="c2 c13">正確な数量とランキングをリアルタイムで計算するのはリソース集約的になります。Lambdaアーキテクチャを採用して、直近数時間以内の近似売上数量とランキングを提供する結果整合性のソリューションと、数時間より古い期間に対する正確な数値を提供できるかもしれません。</span></p>
+<p class="c9"><span class="c2 c13">正確性をトレードオフして、より高いスケーラビリティ、低コスト、低複雑性、より良い保守性を得ることも検討できます。特定のTop Kリストは特定の期間が過ぎてから少なくとも数時間後に計算することを想定しているので、整合性は問題になりません。</span></p>
+<p class="c9"><span class="c2 c13">低レイテンシは問題ではありません。リストの生成には多くの分がかかると想定できます。</span></p>
+<ul class="c8 lst-kix_20rlxmqwhjyg-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">Top Kまたはトップ10だけが必要なのか、それとも任意の数の製品の数量とランキングが必要なのか？</span></li></ul>
+<p class="c4"><span class="c2 c13">前の質問と同様に、直近数時間以内のトップ10製品の近似数量とランキング、および数時間より古い期間（最大数年まで）の任意数の製品の数量とランキングを提供するソリューションを受け入れられます。ソリューションが10より多くの製品を表示できる場合もまったく問題ありません。</span></p>
+<ul class="c8 lst-kix_qxjhwpgmb83j-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">Top Kリストに販売数を表示する必要があるか、それとも製品の販売ランキングだけか？</span></li></ul>
+<p class="c4"><span class="c2 c13">ランキングと数の両方を表示します。これは余計な質問のように思えますが、特定のデータを表示する必要がないなら設計を簡略化できる可能性があります。</span></p>
+<ul class="c8 lst-kix_587xurbph735-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">販売後に発生するイベントを考慮する必要があるか？顧客は返金、同じまたは異なる製品との交換をリクエストすることや、製品がリコールされることがあります。</span></li></ul>
+<p class="c4"><span class="c2 c13">業界経験と細部への注意を示す良い質問です。最初の販売イベントのみを考慮し、紛争や製品リコールなどの後続イベントは無視できると仮定しましょう。</span></p>
+<ul class="c8 lst-kix_u1gkb5dukend-0 start"><li class="c38 li-bullet-0"><span class="c2 c13">スケーラビリティ要件を議論しましょう。販売取引レートは？Heavy Hittersダッシュボードのリクエストレートは？製品数は？</span></li></ul>
+<p class="c4"><span class="c2 c13">1日100億の販売イベント（つまり、重い販売取引トラフィック）を仮定します。1イベントあたり1 KBで、書き込みレートは1日10 TBです。Heavy Hittersダッシュボードは従業員のみが閲覧するので、リクエストレートは低くなります。約100万の製品があると仮定します。</span></p>
+<p class="c4"><span class="c2 c13">他の非機能要件はありません。高可用性や低レイテンシ（およびそれらがシステム設計にもたらす対応する複雑性）は必要ありません。</span></p>

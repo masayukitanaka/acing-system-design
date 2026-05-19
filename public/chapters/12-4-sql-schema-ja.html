@@ -1,0 +1,39 @@
+<p class="c9"><span class="c2 c13">どの写真がどのユーザーに紐付くかなど、クライアントアプリ上に表示される動的データにはSQLデータベースを使います。リスト12.1のように、次のSQLテーブルスキーマを定義できます。Imageテーブルは画像メタデータを格納します。各共有者に独自のCDNディレクトリを割り当てることができ、ImageDirテーブルでこれを追跡します。スキーマの説明はCREATE文に含めています。</span></p>
+<p class="c44 c100"><span class="c101 c95 c13">リスト12.1 ImageテーブルとImageDirテーブルのSQL CREATE文</span></p>
+<p class="c3"><span class="c7">CREATE TABLE Image (</span></p>
+<p class="c3"><span class="c7">cdn_path VARCHAR(255) PRIMARY KEY COMMENT="Image file path on the</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;CDN.",</span></p>
+<p class="c3"><span class="c7">cdn_photo_key VARCHAR(255) NOT NULL UNIQUE COMMENT="ID assigned by the</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;CDN.",</span></p>
+<p class="c3"><span class="c7">file_key VARCHAR(255) NOT NULL UNIQUE COMMENT="ID assigned by our File</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;Storage Service. We may not need this column if we delete the image from</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;our File Storage Service after it is uploaded to the CDN.",</span></p>
+<p class="c3"><span class="c7">resolution ENUM(‘thumbnail’, ‘hd’) COMMENT="Indicates the image is a</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;thumbnail or high resolution",</span></p>
+<p class="c3"><span class="c7">owner_id VARCHAR(255) NOT NULL COMMENT="ID of the user who owns the</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;image.",</span></p>
+<p class="c3"><span class="c7">is_public BOOLEAN NOT NULL DEFAULT 1 COMMENT="Indicates if the image is</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;public or private.",</span></p>
+<p class="c3"><span class="c7">INDEX thumbnail (Resolution, UserId) COMMENT="Composite index on the</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;resolution and user ID so we can quickly find thumbnail or high</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;resolution images that belong to a particular user."</span></p>
+<p class="c3"><span class="c7">) COMMENT="Image metadata.";</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">CREATE TABLE ImageDir (</span></p>
+<p class="c3"><span class="c7">cdn_dir VARCHAR(255) PRIMARY KEY COMMENT="CDN directory assigned to the</span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">&nbsp;user.",</span></p>
+<p class="c3"><span class="c7">user_id INTEGER NOT NULL COMMENT="User ID."</span></p>
+<p class="c74 c13"><span class="c7">) COMMENT="Record the CDN directory assigned to each sharer.";</span></p>
+<p class="c4"><span class="c2 c13">ユーザーIDと解像度で写真を取得するのは一般的なクエリなので、これらのフィールドでテーブルにインデックスを作成します。SQLの読み取りをスケールさせるには第4章で議論したアプローチに従えます。</span></p>
+<p class="c4"><span class="c1">共有者が閲覧者に自分の写真の閲覧権限を付与でき、閲覧者が写真をお気に入りできるようにするため、次のスキーマを定義できます。2つのテーブルを使う代わりに、Shareテーブルに</span><span class="c30">is_favorite</span><span class="c2 c13">のブーリアン列を定義する方法もありますが、それは不要なストレージを使う疎な列になるというトレードオフがあります。</span></p>
+<p class="c3"><span class="c7">CREATE TABLE Share (</span></p>
+<p class="c3"><span class="c7">&nbsp; id &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;INT PRIMARY KEY</span></p>
+<p class="c3"><span class="c7">&nbsp; cdn_photo_key VARCHAR(255),</span></p>
+<p class="c3"><span class="c7">&nbsp; user_id &nbsp; &nbsp; &nbsp; VARCHAR(255)</span></p>
+<p class="c3"><span class="c7">);</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">CREATE TABLE Favorite (</span></p>
+<p class="c3"><span class="c7">&nbsp; id INT PRIMARY KEY</span></p>
+<p class="c3"><span class="c7">&nbsp; cdn_photo_key VARCHAR(255) NOT NULL UNIQUE,</span></p>
+<p class="c3"><span class="c7">&nbsp; user_id VARCHAR(255) NOT NULL UNIQUE</span></p>
+<p class="c74 c13"><span class="c7">);</span></p>

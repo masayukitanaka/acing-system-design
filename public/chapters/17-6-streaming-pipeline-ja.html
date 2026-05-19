@@ -1,0 +1,56 @@
+<p class="c9"><span class="c2 c13">バッチジョブは完了に何時間もかかり得、これがすべての区間のロールアップに影響します。たとえば、直近の時間ごとのロールアップジョブのHiveクエリの完了に30分かかると、それ以降のロールアップとその拡張でTop Kリストが利用できなくなります。</span></p>
+<ul class="c8 lst-kix_gt7dr6wbsr0m-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">その時間のTop Kリスト。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">その時間を含む日のTop Kリスト。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">その日を含む週と月のTop Kリスト。</span></li></ul>
+<p class="c9"><span class="c2 c13">ストリーミングパイプラインの目的は、バッチパイプラインがまだ提供していないカウント（とTop Kリスト）を提供することです。ストリーミングパイプラインはこれらのカウントをバッチパイプラインよりはるかに高速に計算する必要があり、近似手法を使うこともできます。</span></p>
+<p class="c4"><span class="c2 c13">初期集約の後、次のステップは最終カウントを計算して降順でソートすることで、これによりTop Kリストが得られます。本節では、まず単一ホストでのアプローチを考え、それを水平スケール可能にする方法を見つけることでこの問題に取り組みます。</span></p>
+<h3 class="c34 c13" id="h.td7q1cnb7s0w"><span class="c46 c11 c13">17.6.1 単一ホストでのハッシュテーブルとmax-heap</span></h3>
+<p class="c9"><span class="c2 c13">最初の試みは、ハッシュテーブルを使い、サイズKのmax-heapで頻度カウントによってソートすることです。リスト17.1はこのアプローチでのTop K Golang関数のサンプルです。</span></p>
+<p class="c44 c100"><span class="c101 c95 c13">リスト17.1 Top Kリストを計算するGolang関数のサンプル</span></p>
+<p class="c3"><span class="c7">type HeavyHitter struct { </span></p>
+<p class="c3"><span class="c7">&nbsp; identifier string </span></p>
+<p class="c3"><span class="c7">&nbsp; frequency int </span></p>
+<p class="c3"><span class="c7">} </span></p>
+<p class="c3"><span class="c7">func topK(events []String, int k) (HeavyHitter) { </span></p>
+<p class="c3"><span class="c7">&nbsp; frequencyTable := make(map[string]int) </span></p>
+<p class="c3"><span class="c7">&nbsp; for _, event := range events { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; value := frequencyTable[event] </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; if value == 0 { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; frequencyTable[event] = 1 </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; } else { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; frequencyTable[event] = value + 1 </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; pq = make(PriorityQueue, k) </span></p>
+<p class="c3"><span class="c7">&nbsp; i := 0 </span></p>
+<p class="c3"><span class="c7">&nbsp; for key, element := range frequencyTable { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; pq[i++] = &amp;HeavyHitter{ </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; identifier: key, </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; frequency: element </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; if pq.Len() &gt; k { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; &nbsp; pq.Pop(&amp;pq).(*HeavyHitter) </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; /* &nbsp;</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp;* Write the heap contents to your destination.</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp;* Here we just return them in an array.</span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp;*/ </span></p>
+<p class="c3"><span class="c7">&nbsp; var result [k]HeavyHitter </span></p>
+<p class="c3"><span class="c7">&nbsp; i := 0 </span></p>
+<p class="c3"><span class="c7">&nbsp; for pq.Len() &gt; 0 { </span></p>
+<p class="c3"><span class="c7">&nbsp; &nbsp; result[i++] = pq.Pop(&amp;pq).(*HeavyHitter) </span></p>
+<p class="c3"><span class="c7">&nbsp; } </span></p>
+<p class="c3"><span class="c7">&nbsp; return result </span></p>
+<p class="c74 c13"><span class="c7">}</span></p>
+<p class="c9"><span class="c2 c13">本システムでは、さまざまな時間バケット（時間、日、週、月、年）に対してこの関数の複数のインスタンスを並列で実行できます。各期間の終わりに、max-heapの内容を保存し、カウントを0にリセットし、新しい期間のカウントを開始できます。</span></p>
+<h3 class="c34 c13" id="h.wq94gro6f3u5"><span class="c46 c11 c13">17.6.2 複数ホストへの水平スケーリングと多層集約</span></h3>
+<p class="c9"><span class="c2 c13">図17.5は複数ホストへの水平スケーリングと多層集約を示します。中央列の2つのホストは左列の上流ホストから（製品, 時間）カウントを合計し、右列のmax-heapは中央列の上流ホストから（製品, 時間）カウントを集約します。</span></p>
+<p class="c17 c13"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 464.00px;"><img alt="" src="/images/image107.png" style="width: 624.00px; height: 464.00px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""></span></p>
+<p class="c17 c13"><span class="c43 c11 c13">図17.5 最終ハッシュテーブルホストへのトラフィックが多すぎる場合、ストリーミングパイプラインに多層アプローチを使えます。簡潔のためキーを（product, hour）の形式で表示しています。たとえば、「(A, 0)」は時間0の製品Aを指します。最終ホスト層にはロールアップ区間ごとに1つずつmax-heapを含められます。この設計は4.5.2節で議論した多層集約サービスに非常に似ています。各ホストには関連するKafkaトピックがあり、ここには図示していません。</span></p>
+<p class="c9"><span class="c2 c13">このアプローチでは、最初のホスト層と最終ハッシュテーブルホストの間にさらにティアを挿入し、処理可能量を超えるトラフィックを受けるホストがないようにします。これは、多層集約サービス実装の複雑性を集約サービスからストリーミングパイプラインに移すだけです。このソリューションは4.5.2節でも説明したとおり、レイテンシをもたらします。また、4.5.3節で説明し図4.6に示したアプローチに従ってパーティショニングを行います。ホットパーティション対処に関する当該節の議論点に注意してください。製品IDでパーティション化します。販売イベントタイムスタンプでパーティション化することもできます。</span></p>
+<p class="c4"><span class="c2 c13">集約</span></p>
+<p class="c4"><span class="c2 c13">製品IDとタイムスタンプの組み合わせで集約することに注目してください。読み進める前に、なぜかを考えてみてください。</span></p>
+<p class="c9"><span class="c2 c13">なぜ製品IDとタイムスタンプの組み合わせで集約するのか？Top Kリストは開始時刻と終了時刻を持つ期間を持つからです。各販売イベントが正しい時間範囲で集約されることを保証する必要があります。たとえば、2023-01-01 10:08 UTCに発生した販売イベントは次に集約されるべきです。</span></p>
+<ol class="c8 lst-kix_qnkswonhlbs4-0 start" start="1"><li class="c18 li-bullet-0"><span class="c2 c13">[2023-01-01 10:08 UTC, 2023-01-01 11:00 UTC)の時間範囲。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">[2023-01-01, 2023-01-02)の日範囲。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">[2022-12-28 00:00 UTC, 2023-01-05 00:00 UTC)の週範囲。2022-12-28と2023-01-05は両方とも月曜日です。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">[2023-01-01, 2013-02-01)の月範囲。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">[2023, 2024)の年範囲。</span></li></ol>
+<p class="c4"><span class="c2 c13">アプローチは、最小の期間（つまり時間）で集約することです。任意のイベントがクラスタ内のすべての層を通過するのに数秒しかかからないと想定されるので、クラスタ内のキーが1時間以上古くなることはまずありません。各製品IDは独自のキーを持ちます。各キーに時間範囲を付加しても、キー数が製品ID数の2倍を超えることはなさそうです。</span></p>
+<p class="c4"><span class="c1">期間の終了から1分後―たとえば[2023-01-01 10:08 UTC, 2023-01-01 11:00 UTC)に対して2023-01-01 11:01 UTC、または[2023-01-01, 2023-01-02)に対して2023-01-02 00:01 UTCに―最終層のそれぞれのホスト（</span><span class="c0">最終ホスト</span><span class="c2 c13">と呼べる）はそのヒープをSQLのspeed_tableに書き込めて、ダッシュボードはこの期間の対応するTop Kリストを表示する準備が整います。たまにイベントがすべての層を通過するのに1分以上かかることがあり、その場合最終ホストは更新されたヒープを単にspeed_tableに書き込めます。最終ホストが古い集約キーを保持する保持期間を数時間または数日に設定でき、その後それらを削除できます。</span></p>
+<p class="c4"><span class="c2 c13">1分待つ代わりに、イベントがホストを通過する際に追跡するシステムを実装し、すべての関連イベントが最終ホストに到達した後にのみ最終ホストがそのヒープをspeed_tableに書き込むようトリガーすることもできます。ただし、これは過度に複雑かもしれず、また、すべてのイベントが完全に処理される前にダッシュボードが近似を表示するのも防いでしまいます。</span></p>

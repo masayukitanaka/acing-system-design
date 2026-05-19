@@ -1,0 +1,38 @@
+<p class="c9"><span class="c2 c13">本オートコンプリートシステムの機能要件を議論するため、面接官と次のような問答ができます。</span></p>
+<h3 class="c34 c13" id="h.h8bkhqq548qp"><span class="c46 c11 c13">11.3.1 オートコンプリートサービスのスコープ</span></h3>
+<p class="c9"><span class="c2 c13">まずは、サポートすべきユースケースや言語など、スコープのいくつかの詳細を明確化できます。</span></p>
+<ul class="c8 lst-kix_eluf5dmxj62c-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">本オートコンプリートは一般検索サービス向けですか、それともワープロやIDEのような他のユースケース向けですか？</span></li></ul>
+<ul class="c8 lst-kix_eluf5dmxj62c-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">一般検索サービスで検索文字列を提案するためのものです。</span></li></ul>
+<ul class="c8 lst-kix_eluf5dmxj62c-0"><li class="c18 li-bullet-0"><span class="c2 c13">英語のみが対象ですか？</span></li></ul>
+<ul class="c8 lst-kix_eluf5dmxj62c-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">はい。</span></li></ul>
+<ul class="c8 lst-kix_eluf5dmxj62c-0"><li class="c18 li-bullet-0"><span class="c2 c13">何語をサポートする必要がありますか？</span></li></ul>
+<ul class="c8 lst-kix_eluf5dmxj62c-1 start"><li class="c59 li-bullet-0"><span class="c1">Webster英語辞典には約47万語（</span><span class="c10"><a class="c14" href="https://www.google.com/url?q=https://www.merriam-webster.com/help/faq-how-many-english-words&amp;sa=D&amp;source=editors&amp;ust=1779180562021951&amp;usg=AOvVaw1yacFAAyIcENuw75DZLvIj">https://www.merriam-webster.com/help/faq-how-many-english-words</a></span><span class="c1">）、Oxford英語辞典には17万1千語超（</span><span class="c10"><a class="c14" href="https://www.google.com/url?q=https://www.lexico.com/explore/how-many-words-are-there-in-the-english-language&amp;sa=D&amp;source=editors&amp;ust=1779180562022194&amp;usg=AOvVaw3mP7xIHjXBhP_oc1w4mzJH">https://www.lexico.com/explore/how-many-words-are-there-in-the-english-language</a></span><span class="c2 c13">）が収録されています。これらのうち6文字以上の語が何個かは不明なので、仮定は置かないでおきます。辞書にない人気の語もサポートしたいので、最大10万語までのセットをサポートしましょう。英語の単語の平均長を4.7文字（5文字に丸める）、1文字1バイトとすると、ストレージ要件はわずか5 MBです。語やフレーズを（プログラム的にではなく）手動で追加できるようにしても、ストレージ要件は無視できる程度の増加にとどまります。</span></li></ul>
+<p class="c9"><span class="c70 c13">注</span><span class="c1">&nbsp;1956年に発表されたIBM 350 RAMACは、5 MBのハードドライブを搭載した初のコンピュータでした（</span><span class="c10"><a class="c14" href="https://www.google.com/url?q=https://www.ibm.com/ibm/history/exhibits/650/650_pr2.html&amp;sa=D&amp;source=editors&amp;ust=1779180562022844&amp;usg=AOvVaw13CurvTI8eoviSiLuFHXUQ">https://www.ibm.com/ibm/history/exhibits/650/650_pr2.html</a></span><span class="c2 c13">）。重量は1トン超、設置面積は9 m（30 ft）×15 m（50 ft）でした。プログラミングは機械語と、プラグボード上のワイヤジャンパで行われていました。当時システム設計面接はありませんでした。</span></p>
+<h3 class="c34 c13" id="h.sgpujgv7h1lj"><span class="c46 c11 c13">11.3.2 UXの詳細</span></h3>
+<p class="c9"><span class="c2 c13">オートコンプリート候補が文に対するものか個別の単語に対するものか、ユーザーが候補を見るまでに何文字入力すべきかなど、オートコンプリート候補のUX（ユーザー体験）の詳細を明確化できます。</span></p>
+<ul class="c8 lst-kix_2mi4rldf75-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">オートコンプリートは単語向けですか文向けですか？</span></li></ul>
+<ul class="c8 lst-kix_2mi4rldf75-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">まずは単語のみを考え、時間があればフレーズや文に拡張できます。</span></li></ul>
+<ul class="c8 lst-kix_2mi4rldf75-0"><li class="c18 li-bullet-0"><span class="c2 c13">候補を表示する前に入力すべき最低文字数はありますか？</span></li></ul>
+<ul class="c8 lst-kix_2mi4rldf75-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">3文字あたりが妥当に思えます。</span></li></ul>
+<ul class="c8 lst-kix_2mi4rldf75-0"><li class="c18 li-bullet-0"><span class="c2 c13">候補の最小長はありますか？3文字入力した後に4文字や5文字の単語の候補を提示しても、それは1～2文字追加するだけなのでユーザーには有用ではありません。</span></li></ul>
+<ul class="c8 lst-kix_2mi4rldf75-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">6文字以上の単語を対象としましょう。</span></li></ul>
+<ul class="c8 lst-kix_2mi4rldf75-0"><li class="c18 li-bullet-0"><span class="c2 c13">数字や特殊文字も考慮すべきですか、それとも文字だけですか？</span></li></ul>
+<ul class="c8 lst-kix_2mi4rldf75-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">文字のみです。数字と特殊文字は無視します。</span></li></ul>
+<ul class="c8 lst-kix_2mi4rldf75-0"><li class="c18 li-bullet-0"><span class="c2 c13">同時に表示するオートコンプリート候補数とその順序はどうしますか？</span></li></ul>
+<ul class="c8 lst-kix_2mi4rldf75-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">一度に10件、頻度の高い順に表示しましょう。まず、文字列を受け取って優先度の高い順に10語の辞書語のリストを返すGETエンドポイントの候補APIを提供できます。その後、ユーザーIDも受け取ってパーソナライズされた候補を返すように拡張できます。</span></li></ul>
+<h3 class="c34 c13" id="h.k1i291vntgz7"><span class="c46 c11 c13">11.3.3 検索履歴の考慮</span></h3>
+<p class="c9"><span class="c2 c13">オートコンプリート候補をユーザーの現在の入力のみに基づくべきか、検索履歴やその他のデータソースに基づくべきかを考える必要があります。</span></p>
+<ul class="c8 lst-kix_1iawm6dq50mo-0 start"><li class="c38 li-bullet-0"><span class="c2 c13">候補を語の集合に限定するなら、ユーザーが送信した検索文字列を処理する必要があることを意味します。この処理の出力がオートコンプリート候補を取得するインデックスである場合、手動で追加・削除された語／フレーズを反映するために、過去に処理済みのデータを再処理する必要があるでしょうか？</span></li></ul>
+<ul class="c8 lst-kix_1iawm6dq50mo-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">こうした問いはエンジニアリング経験を示すものです。再処理すべき過去データがかなりの量に上ることを面接官と議論します。しかし、なぜ新しい語やフレーズを手動で追加するのでしょうか？それは過去のユーザー検索文字列の分析に基づくでしょう。分析とインサイトのために問い合わせやすいテーブルを作るETLパイプラインを検討できます。</span></li></ul>
+<ul class="c8 lst-kix_1iawm6dq50mo-0"><li class="c38 li-bullet-0"><span class="c2 c13">候補のデータソースは何ですか？過去に送信されたクエリのみですか、それともユーザーの属性のような他のデータソースもありますか？</span></li></ul>
+<ul class="c8 lst-kix_1iawm6dq50mo-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">他のデータソースを検討するのは良い発想です。今は送信されたクエリのみを使いましょう。将来他のデータソースを受け入れ得る拡張可能な設計が良いかもしれません。</span></li></ul>
+<ul class="c8 lst-kix_1iawm6dq50mo-0"><li class="c18 li-bullet-0"><span class="c2 c13">全ユーザーデータに基づいて候補を表示すべきですか、それとも現在のユーザーのデータに基づいてですか（パーソナライズドオートコンプリート）？</span></li></ul>
+<ul class="c8 lst-kix_1iawm6dq50mo-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">まず全ユーザーデータから始め、その後パーソナライゼーションを検討しましょう。</span></li></ul>
+<ul class="c8 lst-kix_1iawm6dq50mo-0"><li class="c18 li-bullet-0"><span class="c2 c13">候補に使う期間はどうしますか？</span></li></ul>
+<ul class="c8 lst-kix_1iawm6dq50mo-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">まず全期間を考え、その後1年より古いデータの除外を検討します。たとえば「昨年1月1日より前のデータは考慮しない」のようなカットオフ日を使えます。</span></li></ul>
+<h3 class="c34 c13" id="h.q4ylmanwbsfd"><span class="c46 c11 c13">11.3.4 コンテンツモデレーションと公平性</span></h3>
+<p class="c9"><span class="c2 c13">コンテンツモデレーションや公平性といった他の可能な機能も考えられます。</span></p>
+<ul class="c8 lst-kix_5fvevrcrv45i-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">不適切な候補をユーザーが通報できる仕組みはどうですか？</span></li></ul>
+<ul class="c8 lst-kix_5fvevrcrv45i-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">それは有用ですが、今は無視できます。</span></li></ul>
+<ul class="c8 lst-kix_5fvevrcrv45i-0"><li class="c18 li-bullet-0"><span class="c2 c13">少数のユーザーが検索の大部分を行った場合を考慮すべきですか？オートコンプリートサービスはユーザーごとに同数の検索を処理することで多数派のユーザーに合わせるよう試みるべきですか？</span></li></ul>
+<ul class="c8 lst-kix_5fvevrcrv45i-1 start"><li class="c37 li-bullet-0"><span class="c2 c13">いいえ、検索文字列そのものだけを考慮しましょう。誰がそれを行ったかは考慮しません。</span></li></ul>

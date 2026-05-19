@@ -1,0 +1,50 @@
+<p class="c9"><span class="c2 c13">用語の明確化：テーブルには行と列があります。特定の（行、列）座標のエントリは、セル、要素、データポイント、または値と呼べます。本章ではこれらの用語を交換可能に使います。</span></p>
+<p class="c9"><span class="c2 c13">手動で定義された検証を、SQLクエリの結果に対する比較演算子でどう定義できるかを議論しましょう。SQLクエリの結果は2次元配列で、これを「result」と呼びます。resultに対して条件文を定義できます。いくつかの例を見ていきましょう。これらの例はすべて日次検証なので、昨日の行のみを検証し、サンプルクエリにはWHERE句「Date(timestamp) &gt; Curdate() - INTERVAL 1 DAY」が含まれます。各例では、まず検証内容を説明し、続いてそのSQLクエリ、そして可能な条件文を示します。</span></p>
+<p class="c9"><span class="c2 c13">手動で定義された検証は以下に対して定義できます。</span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0 start"><li class="c18 li-bullet-0"><span class="c0">列の個別データポイント</span><span class="c2 c13">―前述した「最新タイムスタンプが24時間未満」が一例です。</span></li></ul>
+<p class="c3"><span class="c7">SELECT COUNT(*) AS cnt </span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">WHERE Date(timestamp) &gt;= Curdate() - INTERVAL 1 DAY</span></li><li class="c18 li-bullet-0"><span class="c1">真となる可能な条件文は</span><span class="c30">result[0][0] &gt; 0</span><span class="c1">&nbsp;および</span><span class="c30">result['cnt'][0] &gt; 0</span><span class="c2 c13">です。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">別の例を議論しましょう。特定のクーポンコードIDが特定の日付に期限切れになる場合、その日以降にこのコードIDが出現するとアラートを発する定期検証を、transactionsテーブルに対して定義できます。これはクーポンコードIDが誤って記録されている可能性を示し得ます。</span></li></ul>
+<p class="c3"><span class="c7">SELECT COUNT(*) AS cnt</span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<p class="c3"><span class="c7">WHERE code_id = @code_id AND Date(timestamp) &gt; @date </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c16">➥</span><span class="c7">AND Date(timestamp) = Curdate() - INTERVAL 1 DAY</span></li><li class="c18 li-bullet-0"><span class="c1">真となる可能な条件文は</span><span class="c30">result[0][0] == 0</span><span class="c1">&nbsp;および</span><span class="c30">result['cnt'][0] == 0</span><span class="c2 c13">です。</span></li><li class="c38 li-bullet-0"><span class="c0">列の複数データポイント―</span><span class="c2 c13">たとえば、個別のアプリユーザーが1日に5回を超える購入をできない場合、いずれかのユーザーIDが前日以降に5行を超えて存在するときにアラートを発する日次検証を、transactionsテーブルに定義できます。これはバグ、その日にユーザーが誤って5回を超える購入ができたこと、または購入が誤って記録されていることを示し得ます。</span></li></ul>
+<p class="c3"><span class="c7">SELECT user_id, count(*) AS cnt</span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<p class="c3"><span class="c7">WHERE Date(timestamp) = Curdate() - INTERVAL 1 DAY </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">GROUP BY user_id</span></li><li class="c18 li-bullet-0"><span class="c1">条件文は</span><span class="c30">result.length &lt;= 5</span><span class="c2 c13">です。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">別の可能性：</span></li></ul>
+<p class="c3"><span class="c7">SELECT * </span></p>
+<p class="c3"><span class="c7">FROM ( </span></p>
+<p class="c3"><span class="c7">&nbsp; SELECT user_id, count(*) AS cnt</span></p>
+<p class="c3"><span class="c7">FROM Transactions</span></p>
+<p class="c3"><span class="c7">&nbsp; WHERE Date(timestamp) = Curdate() - INTERVAL 1 DAY </span></p>
+<p class="c3"><span class="c7">&nbsp; GROUP BY user_id </span></p>
+<p class="c3"><span class="c7">) AS yesterday_user_counts </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">WHERE cnt &gt; 5;</span></li><li class="c18 li-bullet-0"><span class="c1">条件文は</span><span class="c30">result.length == 0</span><span class="c2 c13">です。</span></li><li class="c38 li-bullet-0"><span class="c0">単一行の複数列―</span><span class="c2 c13">たとえば、特定のクーポンコードを使った売上の合計回数が1日に100を超えてはならない、というケース。</span></li></ul>
+<p class="c3"><span class="c7">SELECT count(*) AS cnt</span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<p class="c3"><span class="c7">WHERE Date(timestamp) = Curdate() - INTERVAL 1 DAY </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c16">➥</span><span class="c7">AND coupon_code = @coupon_code</span></li><li class="c18 li-bullet-0"><span class="c1">条件文は</span><span class="c30">result.length &lt;= 100</span><span class="c2 c13">です。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">別のクエリと条件文の組み合わせは次のとおりです。</span></li></ul>
+<p class="c3"><span class="c7">SELECT *</span></p>
+<p class="c3"><span class="c7">FROM ( </span></p>
+<p class="c3"><span class="c7">&nbsp; SELECT count(*) AS cnt</span></p>
+<p class="c3"><span class="c7">FROM Transactions </span></p>
+<p class="c3"><span class="c7">WHERE Date(timestamp) = Curdate() - INTERVAL 1 DAY </span></p>
+<p class="c3"><span class="c16">➥</span><span class="c7">AND coupon_code = @coupon_code </span></p>
+<p class="c3"><span class="c7">) AS yesterday_user_counts </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">WHERE cnt &gt; 100;</span></li><li class="c18 li-bullet-0"><span class="c1">条件文は</span><span class="c30">result.length == 0</span><span class="c2 c13">です。</span></li><li class="c38 li-bullet-0"><span class="c0">複数テーブル―</span><span class="c2 c13">たとえば、北米の売上を記録するファクトテーブルsales_naがあり、country_code列を持つとします。地域ごとの国コードのリストを持つディメンションテーブルcountry_codesを作成できます。新しい行のcountry_codeの値がすべて北米の国であることを確認する定期検証を定義できます。</span></li></ul>
+<p class="c3"><span class="c7">SELECT * </span></p>
+<p class="c3"><span class="c7">FROM sales_na S JOIN country_codes C ON S.country_code = C.id </span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">WHERE C.region != 'NA';</span></li><li class="c18 li-bullet-0"><span class="c1">条件文は</span><span class="c30">result.length == 0</span><span class="c2 c13">です。</span></li><li class="c38 li-bullet-0"><span class="c0">複数クエリに対する条件文―</span><span class="c1">たとえば、ある日の売上数が前週の同じ曜日と比較して10%以上変化した場合にアラートを発したい場合があります。次のように2つのクエリを実行して結果を比較できます。クエリ結果を</span><span class="c86 c13">result</span><span class="c1">配列に追加するので、この</span><span class="c86 c13">result</span><span class="c2 c13">配列は2Dではなく3Dになります。</span></li></ul>
+<p class="c3"><span class="c7">SELECT COUNT(*)</span></p>
+<p class="c3"><span class="c7">FROM sales</span></p>
+<p class="c3"><span class="c7">WHERE Date(timestamp) = Curdate()</span></p>
+<p class="c3 c65"><span class="c7"></span></p>
+<p class="c3"><span class="c7">SELECT COUNT(*)</span></p>
+<p class="c3"><span class="c7">FROM sales</span></p>
+<ul class="c8 lst-kix_ujc1x52zmaq0-0"><li class="c56 li-bullet-0"><span class="c7">WHERE Date(timestamp) = Curdate() - INTERVAL 7 DAY</span></li></ul>
+<p class="c4"><span class="c1">条件文は</span><span class="c30">Math.abs(result[0][0][0] – result[1][0][0]) / result[0][0][0] &lt; 0.1</span><span class="c2 c13">です。</span></p>
+<p class="c4"><span class="c2 c13">手動で定義する検証には他にも数えきれない可能性があります。たとえば：</span></p>
+<ul class="c8 lst-kix_xk3hy55n681n-0 start"><li class="c18 li-bullet-0"><span class="c2 c13">1時間あたりテーブルに書き込まれる新しい行数の最小値。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">特定の文字列列はnull値を含んではならず、文字列長は1～255の間でなければならない。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">特定の文字列列は特定の正規表現にマッチする値でなければならない。</span></li><li class="c18 li-bullet-0"><span class="c2 c13">特定の整数列は非負でなければならない。</span></li></ul>
+<p class="c9"><span class="c1">これらの種類の制約の一部は、Hibernateの</span><span class="c30">@NotNull</span><span class="c1">や</span><span class="c30">@Length(min = 0, max = 255)</span><span class="c2 c13">といったORMライブラリの関数アノテーションや、GolangのSQLパッケージの制約型でも実装できます。この場合、本監査サービスは追加の検証層として機能します。監査の失敗はサービス内のサイレントエラーを示しており、調査すべきです。</span></p>
+<p class="c9"><span class="c2 c13">本節の例はSQLでした。この概念は、HiveQL、Trino（旧称PrestoSQL）、Sparkといった他のクエリ言語での検証クエリ定義にも一般化できます。本設計はデータベースクエリ言語を使った検証定義に焦点を当てていますが、汎用プログラミング言語での検証関数も定義できます。</span></p>

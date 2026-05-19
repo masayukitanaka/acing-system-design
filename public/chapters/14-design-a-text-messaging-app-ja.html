@@ -1,0 +1,3 @@
+<p class="c9"><span class="c2 c13">本章で扱う内容</span></p>
+<ul class="c8 lst-kix_81x5ponhzk3l-0 start"><li class="c49 li-bullet-0"><span class="c33 c11 c13">数十億のクライアントが短いメッセージを送り合うアプリの設計</span></li><li class="c49 li-bullet-0"><span class="c33 c11 c13">レイテンシとコストのトレードオフを伴うアプローチの検討</span></li><li class="c49 li-bullet-0"><span class="c33 c11 c13">フォールトトレランスのための設計</span></li></ul>
+<p class="c9"><span class="c2 c13">10万人のユーザーが互いに数秒以内にメッセージを送れるシステムであるテキストメッセージングアプリを設計しましょう。動画や音声チャットは考慮しません。ユーザーは予測できないレートでメッセージを送るので、システムはこれらのトラフィック急増を処理できるべきです。これは「正確に1回（exactly-once）」の配信を考慮する本書の最初の例システムです。メッセージが失われてはならず、複数回送られてもいけません。</span></p>
