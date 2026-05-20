@@ -51,31 +51,31 @@
     "id": "1-a-walkthrough-of-system-design-concepts",
     "title": "1 A walkthrough of system design concepts",
     "htmlPath": "/chapters/1-a-walkthrough-of-system-design-concepts.html",
-    "title_ja": "第1章 ウォークスルー: system 設計 コンセプト"
+    "title_ja": "第1章 システム設計コンセプトのウォークスルー"
   },
   {
     "id": "1-1-a-discussion-about-tradeoffs",
     "title": "1.1 A discussion about tradeoffs",
     "htmlPath": "/chapters/1-1-a-discussion-about-tradeoffs.html",
-    "title_ja": "1.1 ディスカッション: トレードオフ"
+    "title_ja": "1.1 トレードオフに関する議論"
   },
   {
     "id": "1-2-should-you-read-this-book-",
     "title": "1.2 Should you read this book?",
     "htmlPath": "/chapters/1-2-should-you-read-this-book-.html",
-    "title_ja": "1.2 Should you read this book?"
+    "title_ja": "1.2 本書を読むべきか？"
   },
   {
     "id": "1-3-overview-of-this-book",
     "title": "1.3 Overview of this book",
     "htmlPath": "/chapters/1-3-overview-of-this-book.html",
-    "title_ja": "1.3 Overview of this book"
+    "title_ja": "1.3 本書の概要"
   },
   {
     "id": "1-4-prelude-a-brief-discussion-of-scaling-the-various-services-of-a-system",
     "title": "1.4 Prelude: A brief discussion of scaling the various services of a system",
     "htmlPath": "/chapters/1-4-prelude-a-brief-discussion-of-scaling-the-various-services-of-a-system.html",
-    "title_ja": "1.4 Prelude: A brief discussion of scaling the various services of a system"
+    "title_ja": "1.4 序章：システムの各種サービスのスケーリングに関する簡単な議論"
   },
   {
     "id": "summary",
@@ -87,61 +87,61 @@
     "id": "2-a-typical-system-design-interview-flow",
     "title": "2 A typical system design interview flow",
     "htmlPath": "/chapters/2-a-typical-system-design-interview-flow.html",
-    "title_ja": "第2章 典型的な system 設計 面接の流れ"
+    "title_ja": "第2章 典型的なシステム設計面接の流れ"
   },
   {
     "id": "2-1-clarify-requirements-and-discuss-tradeoffs",
     "title": "2.1 Clarify requirements and discuss tradeoffs",
     "htmlPath": "/chapters/2-1-clarify-requirements-and-discuss-tradeoffs.html",
-    "title_ja": "2.1 Clarify requirements and discuss トレードオフ"
+    "title_ja": "2.1 要件の明確化とトレードオフの議論"
   },
   {
     "id": "2-2-draft-the-api-specification",
     "title": "2.2 Draft the API specification",
     "htmlPath": "/chapters/2-2-draft-the-api-specification.html",
-    "title_ja": "2.2 Draft the API specification"
+    "title_ja": "2.2 API仕様のドラフト"
   },
   {
     "id": "2-3-connections-and-processing-between-users-and-data",
     "title": "2.3 Connections and processing between users and data",
     "htmlPath": "/chapters/2-3-connections-and-processing-between-users-and-data.html",
-    "title_ja": "2.3 Connections and processing between users and data"
+    "title_ja": "2.3 ユーザーとデータ間の接続と処理"
   },
   {
     "id": "2-4-design-the-data-model",
     "title": "2.4 Design the data model",
     "htmlPath": "/chapters/2-4-design-the-data-model.html",
-    "title_ja": "2.4 設計 the data model"
+    "title_ja": "2.4 データモデルの設計"
   },
   {
     "id": "2-5-logging-monitoring-and-alerting",
     "title": "2.5 Logging, monitoring, and alerting",
     "htmlPath": "/chapters/2-5-logging-monitoring-and-alerting.html",
-    "title_ja": "2.5 Logging, monitoring, and alerting"
+    "title_ja": "2.5 ロギング、モニタリング、アラート"
   },
   {
     "id": "2-6-search-bar",
     "title": "2.6 Search bar",
     "htmlPath": "/chapters/2-6-search-bar.html",
-    "title_ja": "2.6 Search bar"
+    "title_ja": "2.6 検索バー"
   },
   {
     "id": "2-7-other-discussions",
     "title": "2.7 Other discussions",
     "htmlPath": "/chapters/2-7-other-discussions.html",
-    "title_ja": "2.7 Other discussions"
+    "title_ja": "2.7 その他の議論"
   },
   {
     "id": "2-8-post-interview-reflection-and-assessment",
     "title": "2.8 Post-interview reflection and assessment",
     "htmlPath": "/chapters/2-8-post-interview-reflection-and-assessment.html",
-    "title_ja": "2.8 Post-interview reflection and assessment"
+    "title_ja": "2.8 面接後の振り返りと評価"
   },
   {
     "id": "2-9-interviewing-the-company",
     "title": "2.9 Interviewing the company",
     "htmlPath": "/chapters/2-9-interviewing-the-company.html",
-    "title_ja": "2.9 Interviewing the company"
+    "title_ja": "2.9 会社を面接する"
   },
   {
     "id": "summary",
@@ -165,67 +165,67 @@
     "id": "3-2-availability",
     "title": "3.2 Availability",
     "htmlPath": "/chapters/3-2-availability.html",
-    "title_ja": "3.2 Availability"
+    "title_ja": "3.2 可用性"
   },
   {
     "id": "3-3-fault-tolerance",
     "title": "3.3 Fault-tolerance",
     "htmlPath": "/chapters/3-3-fault-tolerance.html",
-    "title_ja": "3.3 Fault-tolerance"
+    "title_ja": "3.3 フォールトトレランス"
   },
   {
     "id": "3-4-performance-latency-and-throughput",
     "title": "3.4 Performance/latency and throughput",
     "htmlPath": "/chapters/3-4-performance-latency-and-throughput.html",
-    "title_ja": "3.4 Performance/latency and throughput"
+    "title_ja": "3.4 パフォーマンス／レイテンシとスループット"
   },
   {
     "id": "3-5-consistency",
     "title": "3.5 Consistency",
     "htmlPath": "/chapters/3-5-consistency.html",
-    "title_ja": "3.5 Consistency"
+    "title_ja": "3.5 整合性"
   },
   {
     "id": "3-6-accuracy",
     "title": "3.6 Accuracy",
     "htmlPath": "/chapters/3-6-accuracy.html",
-    "title_ja": "3.6 Accuracy"
+    "title_ja": "3.6 正確性"
   },
   {
     "id": "3-7-complexity-and-maintainability",
     "title": "3.7 Complexity and maintainability",
     "htmlPath": "/chapters/3-7-complexity-and-maintainability.html",
-    "title_ja": "3.7 Complexity and maintainability"
+    "title_ja": "3.7 複雑性と保守性"
   },
   {
     "id": "3-8-cost",
     "title": "3.8 Cost",
     "htmlPath": "/chapters/3-8-cost.html",
-    "title_ja": "3.8 Cost"
+    "title_ja": "3.8 コスト"
   },
   {
     "id": "3-9-security",
     "title": "3.9 Security",
     "htmlPath": "/chapters/3-9-security.html",
-    "title_ja": "3.9 Security"
+    "title_ja": "3.9 セキュリティ"
   },
   {
     "id": "3-10-privacy",
     "title": "3.10 Privacy",
     "htmlPath": "/chapters/3-10-privacy.html",
-    "title_ja": "3.10 Privacy"
+    "title_ja": "3.10 プライバシー"
   },
   {
     "id": "3-11-cloud-native",
     "title": "3.11 Cloud native",
     "htmlPath": "/chapters/3-11-cloud-native.html",
-    "title_ja": "3.11 Cloud native"
+    "title_ja": "3.11 クラウドネイティブ"
   },
   {
     "id": "3-12-further-reading",
     "title": "3.12 Further reading",
     "htmlPath": "/chapters/3-12-further-reading.html",
-    "title_ja": "3.12 Further reading"
+    "title_ja": "3.12 参考文献"
   },
   {
     "id": "summary",
@@ -237,49 +237,49 @@
     "id": "4-scaling-databases",
     "title": "4 Scaling databases",
     "htmlPath": "/chapters/4-scaling-databases.html",
-    "title_ja": "第4章 Scaling データベースs"
+    "title_ja": "第4章 データベースのスケーリング"
   },
   {
     "id": "4-1-brief-prelude-on-storage-services",
     "title": "4.1 Brief prelude on storage services",
     "htmlPath": "/chapters/4-1-brief-prelude-on-storage-services.html",
-    "title_ja": "4.1 Brief prelude on storage services"
+    "title_ja": "4.1 ストレージサービスの簡単な序章"
   },
   {
     "id": "4-2-when-to-use-vs-avoid-databases",
     "title": "4.2 When to use vs. avoid databases",
     "htmlPath": "/chapters/4-2-when-to-use-vs-avoid-databases.html",
-    "title_ja": "4.2 When to use vs. avoid データベースs"
+    "title_ja": "4.2 データベースをいつ使うか、いつ避けるか"
   },
   {
     "id": "4-3-replication",
     "title": "4.3 Replication",
     "htmlPath": "/chapters/4-3-replication.html",
-    "title_ja": "4.3 Replication"
+    "title_ja": "4.3 レプリケーション"
   },
   {
     "id": "4-4-scaling-storage-capacity-with-sharded-databases",
     "title": "4.4 Scaling storage capacity with sharded databases",
     "htmlPath": "/chapters/4-4-scaling-storage-capacity-with-sharded-databases.html",
-    "title_ja": "4.4 Scaling storage capacity with sharded データベースs"
+    "title_ja": "4.4 シャード化データベースでストレージ容量をスケールする"
   },
   {
     "id": "4-5-aggregating-events",
     "title": "4.5 Aggregating events",
     "htmlPath": "/chapters/4-5-aggregating-events.html",
-    "title_ja": "4.5 Aggregating events"
+    "title_ja": "4.5 イベントの集約"
   },
   {
     "id": "4-6-batch-and-streaming-etl",
     "title": "4.6 Batch and streaming ETL",
     "htmlPath": "/chapters/4-6-batch-and-streaming-etl.html",
-    "title_ja": "4.6 Batch and streaming ETL"
+    "title_ja": "4.6 バッチとストリーミングのETL"
   },
   {
     "id": "4-7-denormalization",
     "title": "4.7 Denormalization",
     "htmlPath": "/chapters/4-7-denormalization.html",
-    "title_ja": "4.7 Denormalization"
+    "title_ja": "4.7 非正規化"
   },
   {
     "id": "4-8-caching",
@@ -291,31 +291,31 @@
     "id": "4-9-caching-as-a-separate-service",
     "title": "4.9 Caching as a separate service",
     "htmlPath": "/chapters/4-9-caching-as-a-separate-service.html",
-    "title_ja": "4.9 キャッシング as a separate service"
+    "title_ja": "4.9 別サービスとしてのキャッシング"
   },
   {
     "id": "4-10-examples-of-different-kinds-of-data-to-cache-and-how-to-cache-them",
     "title": "4.10 Examples of different kinds of data to cache and how to cache them",
     "htmlPath": "/chapters/4-10-examples-of-different-kinds-of-data-to-cache-and-how-to-cache-them.html",
-    "title_ja": "4.10 Examples of different kinds of data to cache and how to cache them"
+    "title_ja": "4.10 キャッシュすべき各種データの例とキャッシュ方法"
   },
   {
     "id": "4-11-cache-invalidation",
     "title": "4.11 Cache invalidation",
     "htmlPath": "/chapters/4-11-cache-invalidation.html",
-    "title_ja": "4.11 Cache invalidation"
+    "title_ja": "4.11 キャッシュ無効化"
   },
   {
     "id": "4-12-cache-warming",
     "title": "4.12 Cache warming",
     "htmlPath": "/chapters/4-12-cache-warming.html",
-    "title_ja": "4.12 Cache warming"
+    "title_ja": "4.12 キャッシュウォーミング"
   },
   {
     "id": "4-13-further-reading",
     "title": "4.13 Further reading",
     "htmlPath": "/chapters/4-13-further-reading.html",
-    "title_ja": "4.13 Further reading"
+    "title_ja": "4.13 参考文献"
   },
   {
     "id": "summary",
@@ -333,49 +333,49 @@
     "id": "5-1-event-driven-architecture-eda-",
     "title": "5.1 Event Driven Architecture (EDA)",
     "htmlPath": "/chapters/5-1-event-driven-architecture-eda-.html",
-    "title_ja": "5.1 Event Driven Architecture (EDA)"
+    "title_ja": "5.1 イベント駆動アーキテクチャ（EDA）"
   },
   {
     "id": "5-2-event-sourcing",
     "title": "5.2 Event sourcing",
     "htmlPath": "/chapters/5-2-event-sourcing.html",
-    "title_ja": "5.2 Event sourcing"
+    "title_ja": "5.2 イベントソーシング"
   },
   {
     "id": "5-3-change-data-capture-cdc-",
     "title": "5.3 Change Data Capture (CDC)",
     "htmlPath": "/chapters/5-3-change-data-capture-cdc-.html",
-    "title_ja": "5.3 Change Data Capture (CDC)"
+    "title_ja": "5.3 Change Data Capture（CDC）"
   },
   {
     "id": "5-4-comparison-of-event-sourcing-and-cdc",
     "title": "5.4 Comparison of event sourcing and CDC",
     "htmlPath": "/chapters/5-4-comparison-of-event-sourcing-and-cdc.html",
-    "title_ja": "5.4 Comparison of event sourcing and CDC"
+    "title_ja": "5.4 イベントソーシングとCDCの比較"
   },
   {
     "id": "5-5-transaction-supervisor",
     "title": "5.5 Transaction supervisor",
     "htmlPath": "/chapters/5-5-transaction-supervisor.html",
-    "title_ja": "5.5 Transaction supervisor"
+    "title_ja": "5.5 トランザクションスーパーバイザ"
   },
   {
     "id": "5-6-saga",
     "title": "5.6 Saga",
     "htmlPath": "/chapters/5-6-saga.html",
-    "title_ja": "5.6 Saga"
+    "title_ja": "5.6 サーガ"
   },
   {
     "id": "5-7-other-transaction-types",
     "title": "5.7 Other transaction types",
     "htmlPath": "/chapters/5-7-other-transaction-types.html",
-    "title_ja": "5.7 Other transaction types"
+    "title_ja": "5.7 その他のトランザクションタイプ"
   },
   {
     "id": "5-8-further-reading",
     "title": "5.8 Further reading",
     "htmlPath": "/chapters/5-8-further-reading.html",
-    "title_ja": "5.8 Further reading"
+    "title_ja": "5.8 参考文献"
   },
   {
     "id": "summary",
@@ -387,49 +387,49 @@
     "id": "6-common-services-for-functional-partitioning",
     "title": "6 Common services for functional partitioning",
     "htmlPath": "/chapters/6-common-services-for-functional-partitioning.html",
-    "title_ja": "第6章 Common services for functional partitioning"
+    "title_ja": "第6章 機能分割のための共通サービス"
   },
   {
     "id": "6-1-common-functionalities-of-various-services",
     "title": "6.1 Common functionalities of various services",
     "htmlPath": "/chapters/6-1-common-functionalities-of-various-services.html",
-    "title_ja": "6.1 Common functionalities of various services"
+    "title_ja": "6.1 各種サービスの共通機能"
   },
   {
     "id": "6-2-service-mesh-sidecar-pattern",
     "title": "6.2 Service mesh/sidecar pattern",
     "htmlPath": "/chapters/6-2-service-mesh-sidecar-pattern.html",
-    "title_ja": "6.2 Service mesh/sidecar pattern"
+    "title_ja": "6.2 サービスメッシュ／サイドカーパターン"
   },
   {
     "id": "6-3-metadata-service",
     "title": "6.3 Metadata service",
     "htmlPath": "/chapters/6-3-metadata-service.html",
-    "title_ja": "6.3 Metadata service"
+    "title_ja": "6.3 メタデータサービス"
   },
   {
     "id": "6-4-service-discovery",
     "title": "6.4 Service discovery",
     "htmlPath": "/chapters/6-4-service-discovery.html",
-    "title_ja": "6.4 Service discovery"
+    "title_ja": "6.4 サービスディスカバリ"
   },
   {
     "id": "6-5-functional-partitioning-and-various-frameworks",
     "title": "6.5 Functional partitioning and various frameworks",
     "htmlPath": "/chapters/6-5-functional-partitioning-and-various-frameworks.html",
-    "title_ja": "6.5 Functional partitioning and various frameworks"
+    "title_ja": "6.5 機能分割と各種フレームワーク"
   },
   {
     "id": "6-6-library-vs-service",
     "title": "6.6 Library vs. service",
     "htmlPath": "/chapters/6-6-library-vs-service.html",
-    "title_ja": "6.6 Library vs. service"
+    "title_ja": "6.6 ライブラリ vs. サービス"
   },
   {
     "id": "6-7-common-api-paradigms",
     "title": "6.7 Common API paradigms",
     "htmlPath": "/chapters/6-7-common-api-paradigms.html",
-    "title_ja": "6.7 Common API paradigms"
+    "title_ja": "6.7 一般的なAPIパラダイム"
   },
   {
     "id": "summary",
@@ -447,13 +447,13 @@
     "id": "7-design-craigslist",
     "title": "7 Design Craigslist",
     "htmlPath": "/chapters/7-design-craigslist.html",
-    "title_ja": "第7章 設計 Craigslist"
+    "title_ja": "第7章 Craigslistの設計"
   },
   {
     "id": "7-1-user-stories-and-requirements",
     "title": "7.1 User stories and requirements",
     "htmlPath": "/chapters/7-1-user-stories-and-requirements.html",
-    "title_ja": "7.1 User stories and requirements"
+    "title_ja": "7.1 ユーザーストーリーと要件"
   },
   {
     "id": "7-2-api",
@@ -465,43 +465,43 @@
     "id": "7-3-sql-database-schema",
     "title": "7.3 SQL database schema",
     "htmlPath": "/chapters/7-3-sql-database-schema.html",
-    "title_ja": "7.3 SQL データベース schema"
+    "title_ja": "7.3 SQLデータベーススキーマ"
   },
   {
     "id": "7-4-initial-high-level-architecture",
     "title": "7.4 Initial high-level architecture",
     "htmlPath": "/chapters/7-4-initial-high-level-architecture.html",
-    "title_ja": "7.4 Initial high-level architecture"
+    "title_ja": "7.4 初期の高レベルアーキテクチャ"
   },
   {
     "id": "7-5-a-monolith-architecture",
     "title": "7.5 A monolith architecture",
     "htmlPath": "/chapters/7-5-a-monolith-architecture.html",
-    "title_ja": "7.5 A monolith architecture"
+    "title_ja": "7.5 モノリスアーキテクチャ"
   },
   {
     "id": "7-6-using-an-sql-database-and-object-store",
     "title": "7.6 Using an SQL database and object store",
     "htmlPath": "/chapters/7-6-using-an-sql-database-and-object-store.html",
-    "title_ja": "7.6 Using an SQL データベース and object store"
+    "title_ja": "7.6 SQLデータベースとオブジェクトストアの使用"
   },
   {
     "id": "7-7-migrations-are-troublesome",
     "title": "7.7 Migrations are troublesome",
     "htmlPath": "/chapters/7-7-migrations-are-troublesome.html",
-    "title_ja": "7.7 Migrations are troublesome"
+    "title_ja": "7.7 マイグレーションは厄介"
   },
   {
     "id": "7-8-writing-and-reading-posts",
     "title": "7.8 Writing and reading posts",
     "htmlPath": "/chapters/7-8-writing-and-reading-posts.html",
-    "title_ja": "7.8 Writing and reading posts"
+    "title_ja": "7.8 投稿の書き込みと読み取り"
   },
   {
     "id": "7-9-functional-partitioning",
     "title": "7.9 Functional partitioning",
     "htmlPath": "/chapters/7-9-functional-partitioning.html",
-    "title_ja": "7.9 Functional partitioning"
+    "title_ja": "7.9 機能分割"
   },
   {
     "id": "7-10-caching",
@@ -519,49 +519,49 @@
     "id": "7-12-scaling-reads-with-a-sql-cluster",
     "title": "7.12 Scaling reads with a SQL cluster",
     "htmlPath": "/chapters/7-12-scaling-reads-with-a-sql-cluster.html",
-    "title_ja": "7.12 Scaling reads with a SQL cluster"
+    "title_ja": "7.12 SQLクラスタで読み取りをスケールする"
   },
   {
     "id": "7-13-scaling-write-throughput",
     "title": "7.13 Scaling write throughput",
     "htmlPath": "/chapters/7-13-scaling-write-throughput.html",
-    "title_ja": "7.13 Scaling write throughput"
+    "title_ja": "7.13 書き込みスループットのスケーリング"
   },
   {
     "id": "7-14-email-service",
     "title": "7.14 Email service",
     "htmlPath": "/chapters/7-14-email-service.html",
-    "title_ja": "7.14 Email service"
+    "title_ja": "7.14 メールサービス"
   },
   {
     "id": "7-15-search",
     "title": "7.15 Search",
     "htmlPath": "/chapters/7-15-search.html",
-    "title_ja": "7.15 Search"
+    "title_ja": "7.15 検索"
   },
   {
     "id": "7-16-removing-old-posts",
     "title": "7.16 Removing old posts",
     "htmlPath": "/chapters/7-16-removing-old-posts.html",
-    "title_ja": "7.16 Removing old posts"
+    "title_ja": "7.16 古い投稿の削除"
   },
   {
     "id": "7-17-monitoring-and-alerting",
     "title": "7.17 Monitoring and alerting",
     "htmlPath": "/chapters/7-17-monitoring-and-alerting.html",
-    "title_ja": "7.17 Monitoring and alerting"
+    "title_ja": "7.17 モニタリングとアラート"
   },
   {
     "id": "7-18-summary-of-our-architecture-discussion-so-far",
     "title": "7.18 Summary of our architecture discussion so far",
     "htmlPath": "/chapters/7-18-summary-of-our-architecture-discussion-so-far.html",
-    "title_ja": "7.18 Summary of our architecture discussion so far"
+    "title_ja": "7.18 これまでのアーキテクチャ議論のまとめ"
   },
   {
     "id": "7-19-other-possible-discussion-topics",
     "title": "7.19 Other possible discussion topics",
     "htmlPath": "/chapters/7-19-other-possible-discussion-topics.html",
-    "title_ja": "7.19 Other possible discussion topics"
+    "title_ja": "7.19 その他の議論し得るトピック"
   },
   {
     "id": "summary",
@@ -573,25 +573,25 @@
     "id": "8-design-a-rate-limiting-service",
     "title": "8 Design a rate-limiting service",
     "htmlPath": "/chapters/8-design-a-rate-limiting-service.html",
-    "title_ja": "第8章 設計 a rate-limiting service"
+    "title_ja": "第8章 レート制限サービスの設計"
   },
   {
     "id": "8-1-alternatives-to-a-rate-limiting-service-and-why-they-are-infeasible",
     "title": "8.1 Alternatives to a rate-limiting service and why they are infeasible",
     "htmlPath": "/chapters/8-1-alternatives-to-a-rate-limiting-service-and-why-they-are-infeasible.html",
-    "title_ja": "8.1 Alternatives to a rate-limiting service and why they are infeasible"
+    "title_ja": "8.1 レート制限サービスの代替案と実現不可能な理由"
   },
   {
     "id": "8-2-when-not-to-do-rate-limiting",
     "title": "8.2 When not to do rate limiting",
     "htmlPath": "/chapters/8-2-when-not-to-do-rate-limiting.html",
-    "title_ja": "8.2 When not to do レート制限"
+    "title_ja": "8.2 レート制限を行わない場合"
   },
   {
     "id": "8-3-functional-requirements",
     "title": "8.3 Functional requirements",
     "htmlPath": "/chapters/8-3-functional-requirements.html",
-    "title_ja": "8.3 Functional requirements"
+    "title_ja": "8.3 機能要件"
   },
   {
     "id": "8-4-non-functional-requirements",
@@ -603,55 +603,55 @@
     "id": "8-5-discuss-user-stories-and-required-service-components",
     "title": "8.5 Discuss user stories and required service components",
     "htmlPath": "/chapters/8-5-discuss-user-stories-and-required-service-components.html",
-    "title_ja": "8.5 Discuss user stories and required service components"
+    "title_ja": "8.5 ユーザーストーリーと必要なサービスコンポーネントの議論"
   },
   {
     "id": "8-6-high-level-architecture",
     "title": "8.6 High-level architecture",
     "htmlPath": "/chapters/8-6-high-level-architecture.html",
-    "title_ja": "8.6 High-level architecture"
+    "title_ja": "8.6 高レベルアーキテクチャ"
   },
   {
     "id": "8-7-stateful-approach-sharding",
     "title": "8.7 Stateful approach/sharding",
     "htmlPath": "/chapters/8-7-stateful-approach-sharding.html",
-    "title_ja": "8.7 Stateful approach/sharding"
+    "title_ja": "8.7 ステートフルアプローチ／シャーディング"
   },
   {
     "id": "8-8-storing-all-counts-in-every-host",
     "title": "8.8 Storing all counts in every host",
     "htmlPath": "/chapters/8-8-storing-all-counts-in-every-host.html",
-    "title_ja": "8.8 Storing all counts in every host"
+    "title_ja": "8.8 すべてのカウントを全ホストに格納する"
   },
   {
     "id": "8-9-rate-limiting-algorithms",
     "title": "8.9 Rate-limiting algorithms",
     "htmlPath": "/chapters/8-9-rate-limiting-algorithms.html",
-    "title_ja": "8.9 Rate-limiting algorithms"
+    "title_ja": "8.9 レート制限アルゴリズム"
   },
   {
     "id": "8-10-employing-a-sidecar-pattern",
     "title": "8.10 Employing a sidecar pattern",
     "htmlPath": "/chapters/8-10-employing-a-sidecar-pattern.html",
-    "title_ja": "8.10 Employing a sidecar pattern"
+    "title_ja": "8.10 サイドカーパターンの採用"
   },
   {
     "id": "8-11-logging-monitoring-and-alerting",
     "title": "8.11 Logging, monitoring, and alerting",
     "htmlPath": "/chapters/8-11-logging-monitoring-and-alerting.html",
-    "title_ja": "8.11 Logging, monitoring, and alerting"
+    "title_ja": "8.11 ロギング、モニタリング、アラート"
   },
   {
     "id": "8-12-providing-functionality-in-a-client-library",
     "title": "8.12 Providing functionality in a client library",
     "htmlPath": "/chapters/8-12-providing-functionality-in-a-client-library.html",
-    "title_ja": "8.12 Providing functionality in a client library"
+    "title_ja": "8.12 クライアントライブラリでの機能提供"
   },
   {
     "id": "8-13-further-reading",
     "title": "8.13 Further reading",
     "htmlPath": "/chapters/8-13-further-reading.html",
-    "title_ja": "8.13 Further reading"
+    "title_ja": "8.13 参考文献"
   },
   {
     "id": "summary",
@@ -663,13 +663,13 @@
     "id": "9-design-a-notification-alerting-service",
     "title": "9 Design a notification/alerting service",
     "htmlPath": "/chapters/9-design-a-notification-alerting-service.html",
-    "title_ja": "第9章 設計 a 通知/alerting service"
+    "title_ja": "第9章 通知／アラートサービスの設計"
   },
   {
     "id": "9-1-functional-requirements",
     "title": "9.1 Functional requirements",
     "htmlPath": "/chapters/9-1-functional-requirements.html",
-    "title_ja": "9.1 Functional requirements"
+    "title_ja": "9.1 機能要件"
   },
   {
     "id": "9-2-non-functional-requirements",
@@ -681,85 +681,85 @@
     "id": "9-3-initial-high-level-architecture",
     "title": "9.3 Initial high-level architecture",
     "htmlPath": "/chapters/9-3-initial-high-level-architecture.html",
-    "title_ja": "9.3 Initial high-level architecture"
+    "title_ja": "9.3 初期の高レベルアーキテクチャ"
   },
   {
     "id": "9-4-object-store-configuring-and-sending-notifications",
     "title": "9.4 Object store: Configuring and sending notifications",
     "htmlPath": "/chapters/9-4-object-store-configuring-and-sending-notifications.html",
-    "title_ja": "9.4 Object store: Configuring and sending 通知s"
+    "title_ja": "9.4 オブジェクトストア：通知の設定と送信"
   },
   {
     "id": "9-5-notification-templates",
     "title": "9.5 Notification templates",
     "htmlPath": "/chapters/9-5-notification-templates.html",
-    "title_ja": "9.5 通知 templates"
+    "title_ja": "9.5 通知テンプレート"
   },
   {
     "id": "9-6-scheduled-notifications",
     "title": "9.6 Scheduled notifications",
     "htmlPath": "/chapters/9-6-scheduled-notifications.html",
-    "title_ja": "9.6 Scheduled 通知s"
+    "title_ja": "9.6 スケジュール通知"
   },
   {
     "id": "9-7-notification-addressee-groups",
     "title": "9.7 Notification addressee groups",
     "htmlPath": "/chapters/9-7-notification-addressee-groups.html",
-    "title_ja": "9.7 通知 addressee groups"
+    "title_ja": "9.7 通知宛先グループ"
   },
   {
     "id": "9-8-unsubscribe-requests",
     "title": "9.8 Unsubscribe requests",
     "htmlPath": "/chapters/9-8-unsubscribe-requests.html",
-    "title_ja": "9.8 Unsubscribe requests"
+    "title_ja": "9.8 購読解除リクエスト"
   },
   {
     "id": "9-9-handling-failed-deliveries",
     "title": "9.9 Handling failed deliveries",
     "htmlPath": "/chapters/9-9-handling-failed-deliveries.html",
-    "title_ja": "9.9 Handling failed deliveries"
+    "title_ja": "9.9 失敗した配信の処理"
   },
   {
     "id": "9-10-client-side-considerations-regarding-duplicate-notifications",
     "title": "9.10 Client-side considerations regarding duplicate notifications",
     "htmlPath": "/chapters/9-10-client-side-considerations-regarding-duplicate-notifications.html",
-    "title_ja": "9.10 Client-side considerations regarding duplicate 通知s"
+    "title_ja": "9.10 重複通知に関するクライアント側の考慮事項"
   },
   {
     "id": "9-11-priority",
     "title": "9.11 Priority",
     "htmlPath": "/chapters/9-11-priority.html",
-    "title_ja": "9.11 Priority"
+    "title_ja": "9.11 優先度"
   },
   {
     "id": "9-12-search",
     "title": "9.12 Search",
     "htmlPath": "/chapters/9-12-search.html",
-    "title_ja": "9.12 Search"
+    "title_ja": "9.12 検索"
   },
   {
     "id": "9-13-monitoring-and-alerting",
     "title": "9.13 Monitoring and alerting",
     "htmlPath": "/chapters/9-13-monitoring-and-alerting.html",
-    "title_ja": "9.13 Monitoring and alerting"
+    "title_ja": "9.13 モニタリングとアラート"
   },
   {
     "id": "9-14-availability-monitoring-and-alerting-on-the-notification-alerting-service",
     "title": "9.14 Availability monitoring and alerting on the notification/alerting service",
     "htmlPath": "/chapters/9-14-availability-monitoring-and-alerting-on-the-notification-alerting-service.html",
-    "title_ja": "9.14 Availability monitoring and alerting on the 通知/alerting service"
+    "title_ja": "9.14 通知／アラートサービス自身の可用性監視とアラート"
   },
   {
     "id": "9-15-other-possible-discussion-topics",
     "title": "9.15 Other possible discussion topics",
     "htmlPath": "/chapters/9-15-other-possible-discussion-topics.html",
-    "title_ja": "9.15 Other possible discussion topics"
+    "title_ja": "9.15 その他の議論し得るトピック"
   },
   {
     "id": "9-16-final-notes",
     "title": "9.16 Final notes",
     "htmlPath": "/chapters/9-16-final-notes.html",
-    "title_ja": "9.16 Final notes"
+    "title_ja": "9.16 最後の注意事項"
   },
   {
     "id": "summary",
@@ -771,85 +771,85 @@
     "id": "10-design-a-database-batch-auditing-service",
     "title": "10 Design a database batch auditing service",
     "htmlPath": "/chapters/10-design-a-database-batch-auditing-service.html",
-    "title_ja": "第10章 設計 a データベース batch auditing service"
+    "title_ja": "第10章 データベースバッチ監査サービスの設計"
   },
   {
     "id": "10-1-why-is-auditing-necessary-",
     "title": "10.1 Why is auditing necessary?",
     "htmlPath": "/chapters/10-1-why-is-auditing-necessary-.html",
-    "title_ja": "10.1 Why is auditing necessary?"
+    "title_ja": "10.1 なぜ監査が必要か？"
   },
   {
     "id": "10-2-defining-a-validation-with-a-conditional-statement-on-a-sql-query-s-result",
     "title": "10.2 Defining a validation with a conditional statement on a SQL query’s result",
     "htmlPath": "/chapters/10-2-defining-a-validation-with-a-conditional-statement-on-a-sql-query-s-result.html",
-    "title_ja": "10.2 Defining a validation with a conditional statement on a SQL query’s result"
+    "title_ja": "10.2 SQLクエリ結果に対する条件文での検証定義"
   },
   {
     "id": "10-3-a-simple-sql-batch-auditing-service",
     "title": "10.3 A simple SQL batch auditing service",
     "htmlPath": "/chapters/10-3-a-simple-sql-batch-auditing-service.html",
-    "title_ja": "10.3 A simple SQL batch auditing service"
+    "title_ja": "10.3 シンプルなSQLバッチ監査サービス"
   },
   {
     "id": "10-4-requirements",
     "title": "10.4 Requirements",
     "htmlPath": "/chapters/10-4-requirements.html",
-    "title_ja": "10.4 Requirements"
+    "title_ja": "10.4 要件"
   },
   {
     "id": "10-5-high-level-architecture",
     "title": "10.5 High-level architecture",
     "htmlPath": "/chapters/10-5-high-level-architecture.html",
-    "title_ja": "10.5 High-level architecture"
+    "title_ja": "10.5 高レベルアーキテクチャ"
   },
   {
     "id": "10-6-constraints-on-database-queries",
     "title": "10.6 Constraints on database queries",
     "htmlPath": "/chapters/10-6-constraints-on-database-queries.html",
-    "title_ja": "10.6 Constraints on データベース queries"
+    "title_ja": "10.6 データベースクエリへの制約"
   },
   {
     "id": "10-7-prevent-too-many-simultaneous-queries",
     "title": "10.7 Prevent too many simultaneous queries",
     "htmlPath": "/chapters/10-7-prevent-too-many-simultaneous-queries.html",
-    "title_ja": "10.7 Prevent too many simultaneous queries"
+    "title_ja": "10.7 同時クエリ数の制限"
   },
   {
     "id": "10-8-other-users-of-database-schema-metadata",
     "title": "10.8 Other users of database schema metadata",
     "htmlPath": "/chapters/10-8-other-users-of-database-schema-metadata.html",
-    "title_ja": "10.8 Other users of データベース schema metadata"
+    "title_ja": "10.8 データベーススキーマメタデータの他の利用者"
   },
   {
     "id": "10-9-auditing-a-data-pipeline",
     "title": "10.9 Auditing a data pipeline",
     "htmlPath": "/chapters/10-9-auditing-a-data-pipeline.html",
-    "title_ja": "10.9 Auditing a data pipeline"
+    "title_ja": "10.9 データパイプラインの監査"
   },
   {
     "id": "10-10-logging-monitoring-and-alerting",
     "title": "10.10 Logging, monitoring, and alerting",
     "htmlPath": "/chapters/10-10-logging-monitoring-and-alerting.html",
-    "title_ja": "10.10 Logging, monitoring, and alerting"
+    "title_ja": "10.10 ロギング、モニタリング、アラート"
   },
   {
     "id": "10-11-other-possible-types-of-audits",
     "title": "10.11 Other possible types of audits",
     "htmlPath": "/chapters/10-11-other-possible-types-of-audits.html",
-    "title_ja": "10.11 Other possible types of audits"
+    "title_ja": "10.11 その他の監査タイプ"
   },
   {
     "id": "10-12-other-possible-discussion-topics",
     "title": "10.12 Other possible discussion topics",
     "htmlPath": "/chapters/10-12-other-possible-discussion-topics.html",
-    "title_ja": "10.12 Other possible discussion topics"
+    "title_ja": "10.12 その他の議論し得るトピック"
   },
   {
     "id": "10-13-references",
     "title": "10.13 References",
     "htmlPath": "/chapters/10-13-references.html",
-    "title_ja": "10.13 References"
+    "title_ja": "10.13 参考文献"
   },
   {
     "id": "summary",
@@ -861,85 +861,85 @@
     "id": "10-design-a-database-batch-auditing-service",
     "title": "10 Design a database batch auditing service",
     "htmlPath": "/chapters/10-design-a-database-batch-auditing-service.html",
-    "title_ja": "第10章 設計 a データベース batch auditing service"
+    "title_ja": "第10章 データベースバッチ監査サービスの設計"
   },
   {
     "id": "10-1-why-is-auditing-necessary-",
     "title": "10.1 Why is auditing necessary?",
     "htmlPath": "/chapters/10-1-why-is-auditing-necessary-.html",
-    "title_ja": "10.1 Why is auditing necessary?"
+    "title_ja": "10.1 なぜ監査が必要か？"
   },
   {
     "id": "10-2-defining-a-validation-with-a-conditional-statement-on-a-sql-query-s-result",
     "title": "10.2 Defining a validation with a conditional statement on a SQL query’s result",
     "htmlPath": "/chapters/10-2-defining-a-validation-with-a-conditional-statement-on-a-sql-query-s-result.html",
-    "title_ja": "10.2 Defining a validation with a conditional statement on a SQL query’s result"
+    "title_ja": "10.2 SQLクエリ結果に対する条件文での検証定義"
   },
   {
     "id": "10-3-a-simple-sql-batch-auditing-service",
     "title": "10.3 A simple SQL batch auditing service",
     "htmlPath": "/chapters/10-3-a-simple-sql-batch-auditing-service.html",
-    "title_ja": "10.3 A simple SQL batch auditing service"
+    "title_ja": "10.3 シンプルなSQLバッチ監査サービス"
   },
   {
     "id": "10-4-requirements",
     "title": "10.4 Requirements",
     "htmlPath": "/chapters/10-4-requirements.html",
-    "title_ja": "10.4 Requirements"
+    "title_ja": "10.4 要件"
   },
   {
     "id": "10-5-high-level-architecture",
     "title": "10.5 High-level architecture",
     "htmlPath": "/chapters/10-5-high-level-architecture.html",
-    "title_ja": "10.5 High-level architecture"
+    "title_ja": "10.5 高レベルアーキテクチャ"
   },
   {
     "id": "10-6-constraints-on-database-queries",
     "title": "10.6 Constraints on database queries",
     "htmlPath": "/chapters/10-6-constraints-on-database-queries.html",
-    "title_ja": "10.6 Constraints on データベース queries"
+    "title_ja": "10.6 データベースクエリへの制約"
   },
   {
     "id": "10-7-prevent-too-many-simultaneous-queries",
     "title": "10.7 Prevent too many simultaneous queries",
     "htmlPath": "/chapters/10-7-prevent-too-many-simultaneous-queries.html",
-    "title_ja": "10.7 Prevent too many simultaneous queries"
+    "title_ja": "10.7 同時クエリ数の制限"
   },
   {
     "id": "10-8-other-users-of-database-schema-metadata",
     "title": "10.8 Other users of database schema metadata",
     "htmlPath": "/chapters/10-8-other-users-of-database-schema-metadata.html",
-    "title_ja": "10.8 Other users of データベース schema metadata"
+    "title_ja": "10.8 データベーススキーマメタデータの他の利用者"
   },
   {
     "id": "10-9-auditing-a-data-pipeline",
     "title": "10.9 Auditing a data pipeline",
     "htmlPath": "/chapters/10-9-auditing-a-data-pipeline.html",
-    "title_ja": "10.9 Auditing a data pipeline"
+    "title_ja": "10.9 データパイプラインの監査"
   },
   {
     "id": "10-10-logging-monitoring-and-alerting",
     "title": "10.10 Logging, monitoring, and alerting",
     "htmlPath": "/chapters/10-10-logging-monitoring-and-alerting.html",
-    "title_ja": "10.10 Logging, monitoring, and alerting"
+    "title_ja": "10.10 ロギング、モニタリング、アラート"
   },
   {
     "id": "10-11-other-possible-types-of-audits",
     "title": "10.11 Other possible types of audits",
     "htmlPath": "/chapters/10-11-other-possible-types-of-audits.html",
-    "title_ja": "10.11 Other possible types of audits"
+    "title_ja": "10.11 その他の監査タイプ"
   },
   {
     "id": "10-12-other-possible-discussion-topics",
     "title": "10.12 Other possible discussion topics",
     "htmlPath": "/chapters/10-12-other-possible-discussion-topics.html",
-    "title_ja": "10.12 Other possible discussion topics"
+    "title_ja": "10.12 その他の議論し得るトピック"
   },
   {
     "id": "10-13-references",
     "title": "10.13 References",
     "htmlPath": "/chapters/10-13-references.html",
-    "title_ja": "10.13 References"
+    "title_ja": "10.13 参考文献"
   },
   {
     "id": "summary",
@@ -951,25 +951,25 @@
     "id": "11-autocomplete-typeahead",
     "title": "11 Autocomplete/typeahead",
     "htmlPath": "/chapters/11-autocomplete-typeahead.html",
-    "title_ja": "第11章 オートコンプリート/タイプアヘッド"
+    "title_ja": "第11章 オートコンプリート／タイプアヘッド"
   },
   {
     "id": "11-1-possible-uses-of-autocomplete",
     "title": "11.1 Possible uses of autocomplete",
     "htmlPath": "/chapters/11-1-possible-uses-of-autocomplete.html",
-    "title_ja": "11.1 Possible uses of オートコンプリート"
+    "title_ja": "11.1 オートコンプリートの考え得る用途"
   },
   {
     "id": "11-2-search-vs-autocomplete",
     "title": "11.2 Search vs. autocomplete",
     "htmlPath": "/chapters/11-2-search-vs-autocomplete.html",
-    "title_ja": "11.2 Search vs. オートコンプリート"
+    "title_ja": "11.2 検索 vs. オートコンプリート"
   },
   {
     "id": "11-3-functional-requirements",
     "title": "11.3 Functional requirements",
     "htmlPath": "/chapters/11-3-functional-requirements.html",
-    "title_ja": "11.3 Functional requirements"
+    "title_ja": "11.3 機能要件"
   },
   {
     "id": "11-4-non-functional-requirements",
@@ -981,49 +981,49 @@
     "id": "11-5-planning-the-high-level-architecture",
     "title": "11.5 Planning the high-level architecture",
     "htmlPath": "/chapters/11-5-planning-the-high-level-architecture.html",
-    "title_ja": "11.5 Planning the high-level architecture"
+    "title_ja": "11.5 高レベルアーキテクチャの計画"
   },
   {
     "id": "11-6-weighted-trie-approach-and-initial-high-level-architecture",
     "title": "11.6 Weighted trie approach and initial high-level architecture",
     "htmlPath": "/chapters/11-6-weighted-trie-approach-and-initial-high-level-architecture.html",
-    "title_ja": "11.6 Weighted trie approach and initial high-level architecture"
+    "title_ja": "11.6 重み付きトライアプローチと初期の高レベルアーキテクチャ"
   },
   {
     "id": "11-7-detailed-implementation",
     "title": "11.7 Detailed implementation",
     "htmlPath": "/chapters/11-7-detailed-implementation.html",
-    "title_ja": "11.7 Detailed implementation"
+    "title_ja": "11.7 詳細実装"
   },
   {
     "id": "11-8-sampling-approach",
     "title": "11.8 Sampling approach",
     "htmlPath": "/chapters/11-8-sampling-approach.html",
-    "title_ja": "11.8 Sampling approach"
+    "title_ja": "11.8 サンプリングアプローチ"
   },
   {
     "id": "11-9-handling-storage-requirements",
     "title": "11.9 Handling storage requirements",
     "htmlPath": "/chapters/11-9-handling-storage-requirements.html",
-    "title_ja": "11.9 Handling storage requirements"
+    "title_ja": "11.9 ストレージ要件の扱い"
   },
   {
     "id": "11-10-handling-phrases-instead-of-single-words",
     "title": "11.10 Handling phrases instead of single words",
     "htmlPath": "/chapters/11-10-handling-phrases-instead-of-single-words.html",
-    "title_ja": "11.10 Handling phrases instead of single words"
+    "title_ja": "11.10 単語ではなくフレーズの扱い"
   },
   {
     "id": "11-11-logging-monitoring-and-alerting",
     "title": "11.11 Logging, monitoring, and alerting",
     "htmlPath": "/chapters/11-11-logging-monitoring-and-alerting.html",
-    "title_ja": "11.11 Logging, monitoring, and alerting"
+    "title_ja": "11.11 ロギング、モニタリング、アラート"
   },
   {
     "id": "11-12-other-considerations-and-further-discussion",
     "title": "11.12 Other considerations and further discussion",
     "htmlPath": "/chapters/11-12-other-considerations-and-further-discussion.html",
-    "title_ja": "11.12 Other considerations and further discussion"
+    "title_ja": "11.12 その他の考慮事項とさらなる議論"
   },
   {
     "id": "summary",
@@ -1035,13 +1035,13 @@
     "id": "12-design-flickr",
     "title": "12 Design Flickr",
     "htmlPath": "/chapters/12-design-flickr.html",
-    "title_ja": "第12章 設計 Flickr"
+    "title_ja": "第12章 Flickrの設計"
   },
   {
     "id": "12-1-user-stories-and-functional-requirements",
     "title": "12.1 User stories and functional requirements",
     "htmlPath": "/chapters/12-1-user-stories-and-functional-requirements.html",
-    "title_ja": "12.1 User stories and functional requirements"
+    "title_ja": "12.1 ユーザーストーリーと機能要件"
   },
   {
     "id": "12-2-non-functional-requirements",
@@ -1053,49 +1053,49 @@
     "id": "12-3-high-level-architecture",
     "title": "12.3 High-level architecture",
     "htmlPath": "/chapters/12-3-high-level-architecture.html",
-    "title_ja": "12.3 High-level architecture"
+    "title_ja": "12.3 高レベルアーキテクチャ"
   },
   {
     "id": "12-4-sql-schema",
     "title": "12.4 SQL schema",
     "htmlPath": "/chapters/12-4-sql-schema.html",
-    "title_ja": "12.4 SQL schema"
+    "title_ja": "12.4 SQLスキーマ"
   },
   {
     "id": "12-5-organizing-directories-and-files-on-the-cdn",
     "title": "12.5 Organizing directories and files on the CDN",
     "htmlPath": "/chapters/12-5-organizing-directories-and-files-on-the-cdn.html",
-    "title_ja": "12.5 Organizing directories and files on the CDN"
+    "title_ja": "12.5 CDN上のディレクトリとファイルの構成"
   },
   {
     "id": "12-6-uploading-a-photo",
     "title": "12.6 Uploading a photo",
     "htmlPath": "/chapters/12-6-uploading-a-photo.html",
-    "title_ja": "12.6 Uploading a photo"
+    "title_ja": "12.6 写真のアップロード"
   },
   {
     "id": "12-7-downloading-images-and-data",
     "title": "12.7 Downloading images and data",
     "htmlPath": "/chapters/12-7-downloading-images-and-data.html",
-    "title_ja": "12.7 Downloading images and data"
+    "title_ja": "12.7 画像とデータのダウンロード"
   },
   {
     "id": "12-8-monitoring-and-alerting",
     "title": "12.8 Monitoring and alerting",
     "htmlPath": "/chapters/12-8-monitoring-and-alerting.html",
-    "title_ja": "12.8 Monitoring and alerting"
+    "title_ja": "12.8 モニタリングとアラート"
   },
   {
     "id": "12-9-some-other-services",
     "title": "12.9 Some other services",
     "htmlPath": "/chapters/12-9-some-other-services.html",
-    "title_ja": "12.9 Some other services"
+    "title_ja": "12.9 その他のサービス"
   },
   {
     "id": "12-10-other-possible-discussion-topics",
     "title": "12.10 Other possible discussion topics",
     "htmlPath": "/chapters/12-10-other-possible-discussion-topics.html",
-    "title_ja": "12.10 Other possible discussion topics"
+    "title_ja": "12.10 その他の議論し得るトピック"
   },
   {
     "id": "summary",
@@ -1107,61 +1107,61 @@
     "id": "13-design-a-content-distribution-network",
     "title": "13 Design a Content Distribution Network",
     "htmlPath": "/chapters/13-design-a-content-distribution-network.html",
-    "title_ja": "第13章 設計 a Content Distribution Network"
+    "title_ja": "第13章 コンテンツ配信ネットワーク（CDN）の設計"
   },
   {
     "id": "13-1-advantages-and-disadvantages-of-a-cdn",
     "title": "13.1 Advantages and disadvantages of a CDN",
     "htmlPath": "/chapters/13-1-advantages-and-disadvantages-of-a-cdn.html",
-    "title_ja": "13.1 Advantages and disadvantages of a CDN"
+    "title_ja": "13.1 CDNの利点と欠点"
   },
   {
     "id": "13-2-requirements",
     "title": "13.2 Requirements",
     "htmlPath": "/chapters/13-2-requirements.html",
-    "title_ja": "13.2 Requirements"
+    "title_ja": "13.2 要件"
   },
   {
     "id": "13-3-cdn-authentication-and-authorization",
     "title": "13.3 CDN authentication and authorization",
     "htmlPath": "/chapters/13-3-cdn-authentication-and-authorization.html",
-    "title_ja": "13.3 CDN authentication and authorization"
+    "title_ja": "13.3 CDNの認証と認可"
   },
   {
     "id": "13-4-high-level-architecture",
     "title": "13.4 High-level architecture",
     "htmlPath": "/chapters/13-4-high-level-architecture.html",
-    "title_ja": "13.4 High-level architecture"
+    "title_ja": "13.4 高レベルアーキテクチャ"
   },
   {
     "id": "13-5-storage-service",
     "title": "13.5 Storage service",
     "htmlPath": "/chapters/13-5-storage-service.html",
-    "title_ja": "13.5 Storage service"
+    "title_ja": "13.5 ストレージサービス"
   },
   {
     "id": "13-6-common-operations",
     "title": "13.6 Common operations",
     "htmlPath": "/chapters/13-6-common-operations.html",
-    "title_ja": "13.6 Common operations"
+    "title_ja": "13.6 共通操作"
   },
   {
     "id": "13-7-cache-invalidation",
     "title": "13.7 Cache invalidation",
     "htmlPath": "/chapters/13-7-cache-invalidation.html",
-    "title_ja": "13.7 Cache invalidation"
+    "title_ja": "13.7 キャッシュ無効化"
   },
   {
     "id": "13-8-logging-monitoring-and-alerting",
     "title": "13.8 Logging, monitoring, and alerting",
     "htmlPath": "/chapters/13-8-logging-monitoring-and-alerting.html",
-    "title_ja": "13.8 Logging, monitoring, and alerting"
+    "title_ja": "13.8 ロギング、モニタリング、アラート"
   },
   {
     "id": "13-9-other-possible-discussions-on-downloading-media-files",
     "title": "13.9 Other possible discussions on downloading media files",
     "htmlPath": "/chapters/13-9-other-possible-discussions-on-downloading-media-files.html",
-    "title_ja": "13.9 Other possible discussions on downloading media files"
+    "title_ja": "13.9 メディアファイルダウンロードに関するその他の議論"
   },
   {
     "id": "summary",
@@ -1173,67 +1173,67 @@
     "id": "14-design-a-text-messaging-app",
     "title": "14 Design a text messaging app",
     "htmlPath": "/chapters/14-design-a-text-messaging-app.html",
-    "title_ja": "第14章 設計 a text messaging app"
+    "title_ja": "第14章 テキストメッセージングアプリの設計"
   },
   {
     "id": "14-1-requirements",
     "title": "14.1 Requirements",
     "htmlPath": "/chapters/14-1-requirements.html",
-    "title_ja": "14.1 Requirements"
+    "title_ja": "14.1 要件"
   },
   {
     "id": "14-2-initial-thoughts",
     "title": "14.2 Initial thoughts",
     "htmlPath": "/chapters/14-2-initial-thoughts.html",
-    "title_ja": "14.2 Initial thoughts"
+    "title_ja": "14.2 初期考察"
   },
   {
     "id": "14-3-initial-high-level-design",
     "title": "14.3 Initial high-level design",
     "htmlPath": "/chapters/14-3-initial-high-level-design.html",
-    "title_ja": "14.3 Initial high-level 設計"
+    "title_ja": "14.3 初期の高レベル設計"
   },
   {
     "id": "14-4-connection-service",
     "title": "14.4 Connection service",
     "htmlPath": "/chapters/14-4-connection-service.html",
-    "title_ja": "14.4 Connection service"
+    "title_ja": "14.4 接続サービス"
   },
   {
     "id": "14-5-sender-service",
     "title": "14.5 Sender service",
     "htmlPath": "/chapters/14-5-sender-service.html",
-    "title_ja": "14.5 Sender service"
+    "title_ja": "14.5 送信者サービス"
   },
   {
     "id": "14-6-message-service",
     "title": "14.6 Message service",
     "htmlPath": "/chapters/14-6-message-service.html",
-    "title_ja": "14.6 Message service"
+    "title_ja": "14.6 メッセージサービス"
   },
   {
     "id": "14-7-message-sending-service",
     "title": "14.7 Message-sending service",
     "htmlPath": "/chapters/14-7-message-sending-service.html",
-    "title_ja": "14.7 Message-sending service"
+    "title_ja": "14.7 メッセージ送信サービス"
   },
   {
     "id": "14-8-search",
     "title": "14.8 Search",
     "htmlPath": "/chapters/14-8-search.html",
-    "title_ja": "14.8 Search"
+    "title_ja": "14.8 検索"
   },
   {
     "id": "14-9-logging-monitoring-and-alerting",
     "title": "14.9 Logging, monitoring, and alerting",
     "htmlPath": "/chapters/14-9-logging-monitoring-and-alerting.html",
-    "title_ja": "14.9 Logging, monitoring, and alerting"
+    "title_ja": "14.9 ロギング、モニタリング、アラート"
   },
   {
     "id": "14-10-other-possible-discussion-topics",
     "title": "14.10 Other possible discussion topics",
     "htmlPath": "/chapters/14-10-other-possible-discussion-topics.html",
-    "title_ja": "14.10 Other possible discussion topics"
+    "title_ja": "14.10 その他の議論し得るトピック"
   },
   {
     "id": "summary",
@@ -1245,67 +1245,67 @@
     "id": "15-design-airbnb",
     "title": "15 Design Airbnb",
     "htmlPath": "/chapters/15-design-airbnb.html",
-    "title_ja": "第15章 設計 Airbnb"
+    "title_ja": "第15章 Airbnbの設計"
   },
   {
     "id": "15-1-requirements",
     "title": "15.1 Requirements",
     "htmlPath": "/chapters/15-1-requirements.html",
-    "title_ja": "15.1 Requirements"
+    "title_ja": "15.1 要件"
   },
   {
     "id": "15-2-design-decisions",
     "title": "15.2 Design decisions",
     "htmlPath": "/chapters/15-2-design-decisions.html",
-    "title_ja": "15.2 設計 decisions"
+    "title_ja": "15.2 設計判断"
   },
   {
     "id": "15-3-high-level-architecture",
     "title": "15.3 High-level architecture",
     "htmlPath": "/chapters/15-3-high-level-architecture.html",
-    "title_ja": "15.3 High-level architecture"
+    "title_ja": "15.3 高レベルアーキテクチャ"
   },
   {
     "id": "15-4-functional-partitioning",
     "title": "15.4 Functional partitioning",
     "htmlPath": "/chapters/15-4-functional-partitioning.html",
-    "title_ja": "15.4 Functional partitioning"
+    "title_ja": "15.4 機能分割"
   },
   {
     "id": "15-5-create-or-update-a-listing",
     "title": "15.5 Create or update a listing",
     "htmlPath": "/chapters/15-5-create-or-update-a-listing.html",
-    "title_ja": "15.5 Create or update a listing"
+    "title_ja": "15.5 リスティングの作成または更新"
   },
   {
     "id": "15-6-approval-service",
     "title": "15.6 Approval service",
     "htmlPath": "/chapters/15-6-approval-service.html",
-    "title_ja": "15.6 Approval service"
+    "title_ja": "15.6 承認サービス"
   },
   {
     "id": "15-7-booking-service",
     "title": "15.7 Booking service",
     "htmlPath": "/chapters/15-7-booking-service.html",
-    "title_ja": "15.7 Booking service"
+    "title_ja": "15.7 予約サービス"
   },
   {
     "id": "15-8-availability-service",
     "title": "15.8 Availability service",
     "htmlPath": "/chapters/15-8-availability-service.html",
-    "title_ja": "15.8 Availability service"
+    "title_ja": "15.8 空き状況サービス"
   },
   {
     "id": "15-9-logging-monitoring-and-alerting",
     "title": "15.9 Logging, monitoring, and alerting",
     "htmlPath": "/chapters/15-9-logging-monitoring-and-alerting.html",
-    "title_ja": "15.9 Logging, monitoring, and alerting"
+    "title_ja": "15.9 ロギング、モニタリング、アラート"
   },
   {
     "id": "15-10-other-possible-discussion-topics",
     "title": "15.10 Other possible discussion topics",
     "htmlPath": "/chapters/15-10-other-possible-discussion-topics.html",
-    "title_ja": "15.10 Other possible discussion topics"
+    "title_ja": "15.10 その他の議論し得るトピック"
   },
   {
     "id": "summary",
@@ -1317,43 +1317,43 @@
     "id": "16-design-a-news-feed",
     "title": "16 Design a news feed",
     "htmlPath": "/chapters/16-design-a-news-feed.html",
-    "title_ja": "第16章 設計 a ニュースフィード"
+    "title_ja": "第16章 ニュースフィードの設計"
   },
   {
     "id": "16-1-requirements",
     "title": "16.1 Requirements",
     "htmlPath": "/chapters/16-1-requirements.html",
-    "title_ja": "16.1 Requirements"
+    "title_ja": "16.1 要件"
   },
   {
     "id": "16-2-high-level-architecture",
     "title": "16.2 High-level architecture",
     "htmlPath": "/chapters/16-2-high-level-architecture.html",
-    "title_ja": "16.2 High-level architecture"
+    "title_ja": "16.2 高レベルアーキテクチャ"
   },
   {
     "id": "16-3-prepare-feed-in-advance",
     "title": "16.3 Prepare feed in advance",
     "htmlPath": "/chapters/16-3-prepare-feed-in-advance.html",
-    "title_ja": "16.3 Prepare feed in advance"
+    "title_ja": "16.3 フィードを事前に準備する"
   },
   {
     "id": "16-4-validation-and-content-moderation",
     "title": "16.4 Validation and content moderation",
     "htmlPath": "/chapters/16-4-validation-and-content-moderation.html",
-    "title_ja": "16.4 Validation and content moderation"
+    "title_ja": "16.4 検証とコンテンツモデレーション"
   },
   {
     "id": "16-5-logging-monitoring-and-alerting",
     "title": "16.5 Logging, monitoring, and alerting",
     "htmlPath": "/chapters/16-5-logging-monitoring-and-alerting.html",
-    "title_ja": "16.5 Logging, monitoring, and alerting"
+    "title_ja": "16.5 ロギング、モニタリング、アラート"
   },
   {
     "id": "16-6-other-possible-discussion-topics",
     "title": "16.6 Other possible discussion topics",
     "htmlPath": "/chapters/16-6-other-possible-discussion-topics.html",
-    "title_ja": "16.6 Other possible discussion topics"
+    "title_ja": "16.6 その他の議論し得るトピック"
   },
   {
     "id": "summary",
@@ -1365,79 +1365,79 @@
     "id": "17-design-a-dashboard-of-top-10-products-on-amazon-by-sales-volume",
     "title": "17 Design a dashboard of top 10 products on Amazon by sales volume",
     "htmlPath": "/chapters/17-design-a-dashboard-of-top-10-products-on-amazon-by-sales-volume.html",
-    "title_ja": "第17章 設計 a dashboard of top 10 products on Amazon by sales volume"
+    "title_ja": "第17章 Amazon売上数量トップ10製品ダッシュボードの設計"
   },
   {
     "id": "17-1-requirements",
     "title": "17.1 Requirements",
     "htmlPath": "/chapters/17-1-requirements.html",
-    "title_ja": "17.1 Requirements"
+    "title_ja": "17.1 要件"
   },
   {
     "id": "17-2-initial-thoughts",
     "title": "17.2 Initial thoughts",
     "htmlPath": "/chapters/17-2-initial-thoughts.html",
-    "title_ja": "17.2 Initial thoughts"
+    "title_ja": "17.2 初期考察"
   },
   {
     "id": "17-3-initial-high-level-architecture",
     "title": "17.3 Initial high-level architecture",
     "htmlPath": "/chapters/17-3-initial-high-level-architecture.html",
-    "title_ja": "17.3 Initial high-level architecture"
+    "title_ja": "17.3 初期の高レベルアーキテクチャ"
   },
   {
     "id": "17-4-aggregation-service",
     "title": "17.4 Aggregation service",
     "htmlPath": "/chapters/17-4-aggregation-service.html",
-    "title_ja": "17.4 Aggregation service"
+    "title_ja": "17.4 集約サービス"
   },
   {
     "id": "17-5-batch-pipeline",
     "title": "17.5 Batch pipeline",
     "htmlPath": "/chapters/17-5-batch-pipeline.html",
-    "title_ja": "17.5 Batch pipeline"
+    "title_ja": "17.5 バッチパイプライン"
   },
   {
     "id": "17-6-streaming-pipeline",
     "title": "17.6 Streaming pipeline",
     "htmlPath": "/chapters/17-6-streaming-pipeline.html",
-    "title_ja": "17.6 Streaming pipeline"
+    "title_ja": "17.6 ストリーミングパイプライン"
   },
   {
     "id": "17-7-approximation",
     "title": "17.7 Approximation",
     "htmlPath": "/chapters/17-7-approximation.html",
-    "title_ja": "17.7 Approximation"
+    "title_ja": "17.7 近似"
   },
   {
     "id": "17-8-dashboard-with-lambda-architecture",
     "title": "17.8 Dashboard with Lambda architecture",
     "htmlPath": "/chapters/17-8-dashboard-with-lambda-architecture.html",
-    "title_ja": "17.8 Dashboard with Lambda architecture"
+    "title_ja": "17.8 Lambdaアーキテクチャでのダッシュボード"
   },
   {
     "id": "17-9-kappa-architecture-approach",
     "title": "17.9 Kappa architecture approach",
     "htmlPath": "/chapters/17-9-kappa-architecture-approach.html",
-    "title_ja": "17.9 Kappa architecture approach"
+    "title_ja": "17.9 Kappaアーキテクチャアプローチ"
   },
   {
     "id": "17-10-logging-monitoring-and-alerting",
     "title": "17.10 Logging, monitoring, and alerting",
     "htmlPath": "/chapters/17-10-logging-monitoring-and-alerting.html",
-    "title_ja": "17.10 Logging, monitoring, and alerting"
+    "title_ja": "17.10 ロギング、モニタリング、アラート"
   },
   {
     "id": "17-11-other-possible-discussion-topics",
     "title": "17.11 Other possible discussion topics",
     "htmlPath": "/chapters/17-11-other-possible-discussion-topics.html",
-    "title_ja": "17.11 Other possible discussion topics"
+    "title_ja": "17.11 その他の議論し得るトピック"
   },
   {
     "id": "17-12-references",
     "title": "17.12 References",
     "htmlPath": "/chapters/17-12-references.html",
-    "title_ja": "17.12 References"
+    "title_ja": "17.12 参考文献"
   },
   {
     "id": "summary",
@@ -1449,102 +1449,102 @@
     "id": "appendix-a-monoliths-vs-microservices",
     "title": "Appendix A. Monoliths vs. microservices",
     "htmlPath": "/chapters/appendix-a-monoliths-vs-microservices.html",
-    "title_ja": "Appendix A. Monoliths vs. microservices"
+    "title_ja": "付録A モノリス vs. マイクロサービス"
   },
   {
     "id": "a-1-advantages-of-monoliths",
     "title": "A.1 Advantages of monoliths",
     "htmlPath": "/chapters/a-1-advantages-of-monoliths.html",
-    "title_ja": "A.1 Advantages of monoliths"
+    "title_ja": "A.1 モノリスの利点"
   },
   {
     "id": "a-2-disadvantages-of-monoliths",
     "title": "A.2 Disadvantages of monoliths",
     "htmlPath": "/chapters/a-2-disadvantages-of-monoliths.html",
-    "title_ja": "A.2 Disadvantages of monoliths"
+    "title_ja": "A.2 モノリスの欠点"
   },
   {
     "id": "a-3-advantages-of-services",
     "title": "A.3 Advantages of services",
     "htmlPath": "/chapters/a-3-advantages-of-services.html",
-    "title_ja": "A.3 Advantages of services"
+    "title_ja": "A.3 サービスの利点"
   },
   {
     "id": "a-4-disadvantages-of-services",
     "title": "A.4 Disadvantages of services",
     "htmlPath": "/chapters/a-4-disadvantages-of-services.html",
-    "title_ja": "A.4 Disadvantages of services"
+    "title_ja": "A.4 サービスの欠点"
   },
   {
     "id": "a-5-references",
     "title": "A.5 References",
     "htmlPath": "/chapters/a-5-references.html",
-    "title_ja": "A.5 References"
+    "title_ja": "A.5 参考文献"
   },
   {
     "id": "appendix-b-oauth-2-0-authorization-and-openid-connect-authentication1",
     "title": "Appendix B. OAuth 2.0 authorization and OpenID Connect authentication1",
     "htmlPath": "/chapters/appendix-b-oauth-2-0-authorization-and-openid-connect-authentication1.html",
-    "title_ja": "Appendix B. OAuth 2.0 authorization and OpenID Connect authentication1"
+    "title_ja": "付録B OAuth 2.0認可とOpenID Connect認証"
   },
   {
     "id": "b-1-authorization-vs-authentication",
     "title": "B.1 Authorization vs. authentication",
     "htmlPath": "/chapters/b-1-authorization-vs-authentication.html",
-    "title_ja": "B.1 Authorization vs. authentication"
+    "title_ja": "B.1 認可 vs. 認証"
   },
   {
     "id": "b-2-prelude-simple-login-cookie-based-authentication",
     "title": "B.2 Prelude: Simple login, cookie-based authentication",
     "htmlPath": "/chapters/b-2-prelude-simple-login-cookie-based-authentication.html",
-    "title_ja": "B.2 Prelude: Simple login, cookie-based authentication"
+    "title_ja": "B.2 序章：シンプルログイン、Cookieベース認証"
   },
   {
     "id": "b-3-single-sign-on",
     "title": "B.3 Single sign-on",
     "htmlPath": "/chapters/b-3-single-sign-on.html",
-    "title_ja": "B.3 Single sign-on"
+    "title_ja": "B.3 シングルサインオン"
   },
   {
     "id": "b-4-disadvantages-of-simple-login",
     "title": "B.4 Disadvantages of simple login",
     "htmlPath": "/chapters/b-4-disadvantages-of-simple-login.html",
-    "title_ja": "B.4 Disadvantages of simple login"
+    "title_ja": "B.4 シンプルログインの欠点"
   },
   {
     "id": "b-5-oauth-2-0-flow",
     "title": "B.5 OAuth 2.0 flow",
     "htmlPath": "/chapters/b-5-oauth-2-0-flow.html",
-    "title_ja": "B.5 OAuth 2.0 flow"
+    "title_ja": "B.5 OAuth 2.0フロー"
   },
   {
     "id": "b-6-other-oauth-2-0-flows",
     "title": "B.6 Other OAuth 2.0 flows",
     "htmlPath": "/chapters/b-6-other-oauth-2-0-flows.html",
-    "title_ja": "B.6 Other OAuth 2.0 flows"
+    "title_ja": "B.6 その他のOAuth 2.0フロー"
   },
   {
     "id": "b-7-openid-connect-authentication",
     "title": "B.7 OpenID Connect authentication",
     "htmlPath": "/chapters/b-7-openid-connect-authentication.html",
-    "title_ja": "B.7 OpenID Connect authentication"
+    "title_ja": "B.7 OpenID Connect認証"
   },
   {
     "id": "appendix-c-c4-model",
     "title": "Appendix C. C4 Model",
     "htmlPath": "/chapters/appendix-c-c4-model.html",
-    "title_ja": "Appendix C. C4 Model"
+    "title_ja": "付録C C4モデル"
   },
   {
     "id": "appendix-d-two-phase-commit-2pc-",
     "title": "Appendix D. Two-phase commit (2PC)",
     "htmlPath": "/chapters/appendix-d-two-phase-commit-2pc-.html",
-    "title_ja": "Appendix D. Two-phase commit (2PC)"
+    "title_ja": "付録D 2フェーズコミット（2PC）"
   },
   {
     "id": "index",
     "title": "index",
     "htmlPath": "/chapters/index.html",
-    "title_ja": "index"
+    "title_ja": "索引"
   }
 ]
