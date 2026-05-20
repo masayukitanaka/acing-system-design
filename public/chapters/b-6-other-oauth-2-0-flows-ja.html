@@ -1,0 +1,6 @@
+<p class="c9"><span class="c2 c13">バックチャネルとフロントチャネルの両方を伴う認可コードフローを説明しました。他のフローには、暗黙的フロー（フロントチャネルのみ）、リソースオーナーパスワード認証情報フロー（バックチャネルのみ）、クライアント認証情報フロー（バックチャネルのみ）があります。</span></p>
+<p class="c4"><span class="c2 c13">アプリにバックエンドがない場合、暗黙的フローがOAuth 2.0を使う唯一の方法です。図B.3は暗黙的フローの例を示しています。すべての通信はフロントチャネルのみです。認可サーバは認可コードと交換ステップなしに、アクセスコードを直接返します。</span></p>
+<p class="c17 c13"><span style="overflow: hidden; display: inline-block; margin: 0.00px 0.00px; border: 0.00px solid #000000; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px); width: 624.00px; height: 365.33px;"><img alt="" src="/images/image113.png" style="width: 624.00px; height: 365.33px; margin-left: 0.00px; margin-top: 0.00px; transform: rotate(0.00rad) translateZ(0px); -webkit-transform: rotate(0.00rad) translateZ(0px);" title=""></span></p>
+<p class="c17 c13"><span class="c43 c11 c13">図B.3 OAuth2暗黙的フローの図示。すべての通信はフロントチャネル。認可サーバへのリクエストはresponse typeが「code」ではなく「token」になっていることに注意してください。</span></p>
+<p class="c4"><span class="c2 c13">アクセストークンがブラウザに露出されるため、暗黙的フローはセキュリティ上のトレードオフを伴います。</span></p>
+<p class="c4"><span class="c2 c13">リソースオーナーパスワードフロー、もしくはリソースオーナーパスワード認証情報フローは、古いアプリケーションで使われており、新しいアプリケーションには推奨されません。バックエンドサーバは認証情報を使って認可サーバにアクセストークンを要求します。クライアント認証情報フローは、マシン間またはサービス通信を行うときにときどき使われます。</span></p>
