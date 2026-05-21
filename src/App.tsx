@@ -8,7 +8,7 @@ interface ChapterMetadata {
   id: string
   title: string
   htmlPath: string
-  title_ja?: string
+  titleJa?: string
 }
 
 interface Chapter extends ChapterMetadata {
@@ -92,7 +92,7 @@ function ChapterView() {
   const previousChapter = currentIndex > 0 ? chaptersData[currentIndex - 1] : null
   const nextChapter = currentIndex < chaptersData.length - 1 ? chaptersData[currentIndex + 1] : null
 
-  const displayTitle = language === 'ja' && chapter.title_ja ? chapter.title_ja : chapter.title
+  const displayTitle = language === 'ja' && chapter.titleJa ? chapter.titleJa : chapter.title
   const displayContent = language === 'ja' && chapter.content_ja ? chapter.content_ja : chapter.content
 
   return (
@@ -110,7 +110,7 @@ function ChapterView() {
             <span className="nav-text">
               <span className="nav-label">{t('nav.previous')}</span>
               <span className="nav-title">
-                {language === 'ja' && previousChapter.title_ja ? previousChapter.title_ja : previousChapter.title}
+                {language === 'ja' && previousChapter.titleJa ? previousChapter.titleJa : previousChapter.title}
               </span>
             </span>
           </Link>
@@ -123,7 +123,7 @@ function ChapterView() {
             <span className="nav-text">
               <span className="nav-label">{t('nav.next')}</span>
               <span className="nav-title">
-                {language === 'ja' && nextChapter.title_ja ? nextChapter.title_ja : nextChapter.title}
+                {language === 'ja' && nextChapter.titleJa ? nextChapter.titleJa : nextChapter.title}
               </span>
             </span>
             <span className="nav-arrow">→</span>
@@ -195,7 +195,7 @@ function App() {
           {chaptersData.map((chapter) => (
             <li key={chapter.id}>
               <Link to={`/chapter/${chapter.id}`} onClick={closeSidebar}>
-                {language === 'ja' && chapter.title_ja ? chapter.title_ja : chapter.title}
+                {language === 'ja' && chapter.titleJa ? chapter.titleJa : chapter.title}
               </Link>
             </li>
           ))}
