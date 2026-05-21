@@ -23,6 +23,9 @@ function parseChaptersFromHTML(htmlPath: string): Chapter[] {
   // Find all h1 and h2 elements that represent chapters
   const headings = Array.from(document.querySelectorAll('h1, h2'))
 
+  // Track current chapter number
+  let currentChapterNumber = 0
+
   for (let i = 0; i < headings.length; i++) {
     const heading = headings[i]
     const title = heading.textContent?.trim() || ''
@@ -30,8 +33,19 @@ function parseChaptersFromHTML(htmlPath: string): Chapter[] {
     // Skip if empty or too short
     if (!title || title.length < 3) continue
 
+    // Update chapter number if this is a main chapter (contains number at start)
+    const chapterMatch = title.match(/^(\d+)/)
+    if (chapterMatch) {
+      currentChapterNumber = parseInt(chapterMatch[1], 10)
+    }
+
     // Create chapter ID from title
-    const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+    let id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
+
+    // If this is a "summary" section and we have a chapter number, prefix with chapter number
+    if (id === 'summary' && currentChapterNumber > 0) {
+      id = `${currentChapterNumber}-summary`
+    }
 
     // Get content between this heading and the next
     const contentElements: Element[] = []
